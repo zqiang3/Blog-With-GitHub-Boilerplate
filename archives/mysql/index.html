@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/495c598c17f0767ea19d0a7e403171c6.json"
+            api: "/Blog-With-GitHub-Boilerplate/97b8d7c78c4f61616664f07276c402c9.json"
         }
     </script>
     
@@ -86,13 +86,23 @@
 <p>聚簇索引与非聚簇索引的区别是：是否存放完整的整行记录。</p>
 <p>InnoDB主键使用的是聚簇索引，MyISAM所有的索引（包括主键索引）使用的都是非聚簇索引。</p>
 <h2>MySQL的聚簇索引一定是主键吗？</h2>
-<p>在InnoDB中，聚集索引不一定是主键，但主键一定是聚集索引。如果没有为表定义主键，聚集索引会被设为第一个不为NULL的唯一索引，如果也没有这样的唯一索引，InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
+<p>在InnoDB中，聚集索引不一定是主键，但主键一定是聚集索引。如果没有为表定义主键，聚集索引会被设为第一个不为NULL的唯一索引，如果也没有这样的唯一索引，
+InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 <h2>InnoDB 事务的四种隔离级别是如何实现的？</h2>
-<h2>COUNT(*) COUNT(1) COUNT(id) COUNT(普通字段)有区别吗？</h2>
+<h2>COUNT(*) COUNT(1) COUNT(id) COUNT(COLUMN)有区别吗？</h2>
 <p>先说结论，在高版本的MySQL（5.5及以后），count(1)比count(*)是没有区别的。</p>
-<p>COUNT()在统计某个列值的数量时，不会统计NULL。当COUNT内的表达式确定不为NULL时，实际上是在统计所有行数。</p>
-<p>如果表只有一个主键索引，没有其他二级索引，那么<code>COUNT(*)</code>与<code>COUNT(1)</code>都是通过主键索引统计行数的。如果该表有二级索引，且二级索引不为NULL，<code>COUNT(*)</code>与<code>COUNT(1)</code>会用<strong>占用空间最小</strong>的二级索引字段作统计。</p>
+<p>COUNT(COLUMN)在统计某个列值的数量时，不会统计NULL。当COUNT内的表达式确定不为NULL时，实际上是在统计所有行数。</p>
+<p>如果表只有一个主键索引，没有其他二级索引，那么<code>COUNT(*)</code>与<code>COUNT(1)</code>都是通过主键索引统计行数的。如果该表有二级索引，<code>COUNT(*)</code>与<code>COUNT(1)</code>
+会用<strong>占用空间最小</strong>的二级索引字段作统计。</p>
+<p>为什么：InnoDB这样操作的原因是为了减少IO次数，因为数据库的瓶颈在IO，通过选择占用空间最小的非NULL索引来统计所有行数，尽可能地减小IO。</p>
 <p>补充：MyISAM在统计表的总行数时会很快，原因是MyISAM对于表的行数作了优化，具体做法有一个变量用于存储表的总行数。但是，如果加了WHERE查询条件，该优化将不起作用。</p>
+<h2>辟谣：MySQL中使用IS NULL, IS NOT NULL, != 不能使用索引？胡扯！</h2>
+<p>NULL值是怎么在记录中存储的：在MySQL中，每一条记录都有固定的格式，以compact格式为会例，在compact格式下，会有一部分记录NULL值列表。NULL值列表是怎么表示的呢？
+首先会统计表中所有可以为NULL的列，然后每个允许为NULL的列对应一个二进制位，逆序排列。如果二进制位为1，表示该列的值为NULL,如果为0表示该列的值不为NULL。另外，
+二进制位的个数是整数个字节。</p>
+<p>键值为NULL的记录怎么在B+树中存放的？答案是放在B+树的最左边。原因是InnoDB有这样的规定：</p>
+<blockquote><p>We define the SQL null to be the smallest possible value of a field.</p>
+</blockquote>
 
             </div>
         </article>
