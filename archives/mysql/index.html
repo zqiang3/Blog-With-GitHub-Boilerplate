@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/39e81c2c80d515d2a2ba16801090ac23.json"
+            api: "/Blog-With-GitHub-Boilerplate/46efaddeaca1e36a96b48c5d2114140e.json"
         }
     </script>
     
@@ -80,21 +80,17 @@
                 
             </span>
             <div class="ga-content_body">
-                <h2>聚簇索引与二级索引</h2>
-<p>聚簇索引：整行数据与索引值放在一块，像InnoDB就是这样做的，聚簇索引的叶子节点存储了整行数据。</p>
-<p>二级索引：除聚簇索引之外的所有索引都称为非聚簇索引（也称为二级索引），叶子节点存储的内容是主键的值。</p>
-<p>聚簇索引与非聚簇索引的区别是：叶节点是否存放完整的整行记录。</p>
+                <h2>聚簇索引与非聚簇索引</h2>
+<p>聚簇索引(clustered index)：聚簇索引的叶节点存储了整行数据。</p>
+<p>非聚簇索引：索引树的叶子节点只存储索引字段和主键的值，不存放整行数据。非聚簇索引也称为二级索引。</p>
+<p>聚簇索引与非聚簇索引的区别是：是否存放完整的整行记录。</p>
 <p>InnoDB主键使用的是聚簇索引，MyISAM所有的索引（包括主键索引）使用的都是非聚簇索引。</p>
-<div class="highlight"><pre><span></span>CREATE INDEX <span class="o">[</span>index name<span class="o">]</span> ON <span class="o">[</span>table name<span class="o">]([</span>column name<span class="o">])</span><span class="p">;</span>
-</pre></div>
-<p>或者</p>
-<div class="highlight"><pre><span></span>ALTER TABLE <span class="o">[</span>table name<span class="o">]</span> ADD INDEX <span class="o">[</span>index name<span class="o">]([</span>column name<span class="o">])</span><span class="p">;</span>
-</pre></div>
-<p>在MySQL中，<code>CREATE INDEX</code> 操作被映射为 <code>ALTER TABLE ADD_INDEX</code>。</p>
+<h2>MySQL的聚簇索引一定是主键吗？</h2>
+<p>在InnoDB中，聚集索引不一定是主键，但主键一定是聚集索引。如果没有为表定义主键，聚集索引会被设为第一个不为NULL的唯一索引，如果也没有这样的唯一索引，InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 <h2>InnoDB 事务的四种隔离级别是如何实现的？</h2>
 <h2>COUNT(*) COUNT(id) COUNT(1)有区别吗？</h2>
 <p>先说结论，这俩在高版本的MySQL（5.5及以后）是没有区别的，没有count(1)比count(*)更快这一说了。</p>
-<p>如果表只有一个主键索引，没有其他二级索引，那么COUNT(<em>)与COUNT(1)都是通过主键索引统计行数的。如果该表有二级索引，COUNT(</em>)与COUNT(1)会用<strong>占用空间最小</strong>的二级索引字段作统计。</p>
+<p>如果表只有一个主键索引，没有其他二级索引，那么COUNT(<em>)与COUNT(1)都是通过主键索引统计行数的。如果该表有二级索引，`COUNT(</em>)<code>与</code>COUNT(1)`会用<strong>占用空间最小</strong>的二级索引字段作统计。</p>
 <p>补充：MyISAM在统计表的总行数时会很快，原因是MyISAM对于表的行数作了优化，具体做法有一个变量用于存储表的总行数。但是，如果加了WHERE查询条件，该优化将不起作用。</p>
 
             </div>
