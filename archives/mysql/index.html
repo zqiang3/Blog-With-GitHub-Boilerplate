@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/97b8d7c78c4f61616664f07276c402c9.json"
+            api: "/Blog-With-GitHub-Boilerplate/21d0243d9a352d61e1aaab1ceea274d6.json"
         }
     </script>
     
@@ -88,7 +88,6 @@
 <h2>MySQL的聚簇索引一定是主键吗？</h2>
 <p>在InnoDB中，聚集索引不一定是主键，但主键一定是聚集索引。如果没有为表定义主键，聚集索引会被设为第一个不为NULL的唯一索引，如果也没有这样的唯一索引，
 InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
-<h2>InnoDB 事务的四种隔离级别是如何实现的？</h2>
 <h2>COUNT(*) COUNT(1) COUNT(id) COUNT(COLUMN)有区别吗？</h2>
 <p>先说结论，在高版本的MySQL（5.5及以后），count(1)比count(*)是没有区别的。</p>
 <p>COUNT(COLUMN)在统计某个列值的数量时，不会统计NULL。当COUNT内的表达式确定不为NULL时，实际上是在统计所有行数。</p>
@@ -103,6 +102,89 @@ InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 <p>键值为NULL的记录怎么在B+树中存放的？答案是放在B+树的最左边。原因是InnoDB有这样的规定：</p>
 <blockquote><p>We define the SQL null to be the smallest possible value of a field.</p>
 </blockquote>
+<h2>InnoDB的事务隔离是如何实现的？</h2>
+<h3>四种隔离级别</h3>
+<p>未提交读(read uncommitted)，提交读(read committed)，可重复读(repeatable read)，串行化(serializable)。</p>
+<p>标准SQL事务隔离级别的实现是依赖锁的，但使用锁的方式实现隔离级别需要频繁地加解锁，很容易出现读写冲突。为了不加锁解决读写冲突的问题，MySQL引入的MVCC机制。
+在读提交和可重复读的隔离级别下，InnoDB会创建一个视图（快照），访问数据的时候以视图的逻辑结果为准。在可重复读的隔离级别下，这个视图是在事务启动时创建的。
+在读提交的隔离级别下，视图是在每条sql语句开始执行时创建的。在读未提交的隔离级别下，不提供隔离措施，不会创建视图，但更新某行数据时加共享锁。串行化的隔离级别是通过加锁的方式
+避免并行访问。</p>
+<h3>锁定读和一致性非锁定读</h3>
+<p>锁定读：在一个事务中进行查询时，主动给读加锁。</p>
+<div class="highlight"><pre><span></span>SELECT ... LOCK IN SHARE MODE  <span class="c1"># 加了行共享锁</span>
+SELECT ... FOR UPDATE  <span class="c1"># 加了行排他锁</span>
+</pre></div>
+<p>一致性非锁定读：
+事务在进行查询时，数据库通过使用MVCC提供某个时间点的数据快照，查询会看到该时间点之前事务对数据的更改，而不会看到该时间点之后事务对数据的更改或未提交的更改。
+consistent read是InnoDB在RC和RR隔离级别下进行SELECT查询的默认模式。</p>
+<h3>当前读和快照读</h3>
+<p>当前读：当前读读取的是数据的最新版本，像UPDATE, DELETE, INSERT, SELECT ... LOCK IN SHARE MODE, SELECT ... FOR UPDATE等操作都是当前读。
+当前读要保证其他并发事务不会修改当前读取的数据，会对相应记录加锁。</p>
+<p>快照读：快照读读取的数据是快照版本，也就是历史版本，像不加锁的SELECT就是快照读。快照读的前提是不在未提交读和串行化的隔离级别下，因为未提交读问题读取最新的数据，串行化则是对表加锁。</p>
+<h3>InnoDB对事务的实现</h3>
+<table>
+<thead><tr>
+<th>事务隔离级别</th>
+<th>实现方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未提交读</td>
+<td>读数据不加锁，都是当前读；更新数据，加行级共享锁，直到事务结束才释放</td>
+</tr>
+<tr>
+<td>提交读</td>
+<td>读数据不加锁，都是快照读；更新数据，加行级排他锁，直到事务结束才释放</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>读数据不加锁，都是快照读；更新数据时，加行级排他锁，间隙锁，直到事务结束才释放</td>
+</tr>
+<tr>
+<td>串行化</td>
+<td>读取数据时，加表级共享锁，都是当前读；更新数据时，加表级排他锁，直到事务结束才释放</td>
+</tr>
+</tbody>
+</table>
+<p>在RR隔离级别下，InnoDB通过快照读，解决了不可重复读的问题，通过间隙锁，解决了幻读的问题。
+通过MVCC，InnoDB可以在RC隔离级别解决不可重复读的问题，可以在RR隔离级别解决幻读的问题。</p>
+<h3>只靠MVCC是否能解决幻读的问题？</h3>
+
+<pre><code>begin;
+
+#假设users表为空，下面查出来的数据为空
+
+select * from users; #没有加锁
+
+#此时另一个事务提交了，且插入了一条id=1的数据
+
+select * from users; #读快照，查出来的数据为空
+
+update users set name='mysql' where id=1;#update是当前读，所以更新成功，并生成一个更新的快照
+
+select * from users; #读快照，查出来id为1的一条记录，因为MVCC可以查到当前事务生成的快照
+
+commit;</code></pre>
+
+<pre><code>begin;
+
+#假设users表为空，下面查出来的数据为空
+
+select * from users lock in share mode; #加上共享锁
+
+#此时另一个事务B想提交且插入了一条id=1的数据，由于有间隙锁，所以要等待
+
+select * from users; #读快照，查出来的数据为空
+
+update users set name='mysql' where id=1;#update是当前读，由于不存在数据，不进行更新
+
+select * from users; #读快照，查出来的数据为空
+
+commit;
+
+#事务B提交成功并插入数据</code></pre>
+<p>注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。</p>
 
             </div>
         </article>
