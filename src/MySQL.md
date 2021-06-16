@@ -1,7 +1,7 @@
 ---
 layout: post
 title: MySQL
-slug: typography
+slug: mysql
 date: 2021-06-16 15:07:17
 status: publish
 author: 君祁
