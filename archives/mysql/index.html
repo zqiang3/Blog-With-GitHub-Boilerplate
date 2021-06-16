@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/46efaddeaca1e36a96b48c5d2114140e.json"
+            api: "/Blog-With-GitHub-Boilerplate/655d6262840a8d5a85c69d61ce7274ab.json"
         }
     </script>
     
@@ -88,9 +88,10 @@
 <h2>MySQL的聚簇索引一定是主键吗？</h2>
 <p>在InnoDB中，聚集索引不一定是主键，但主键一定是聚集索引。如果没有为表定义主键，聚集索引会被设为第一个不为NULL的唯一索引，如果也没有这样的唯一索引，InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 <h2>InnoDB 事务的四种隔离级别是如何实现的？</h2>
-<h2>COUNT(*) COUNT(id) COUNT(1)有区别吗？</h2>
-<p>先说结论，这俩在高版本的MySQL（5.5及以后）是没有区别的，没有count(1)比count(*)更快这一说了。</p>
-<p>如果表只有一个主键索引，没有其他二级索引，那么COUNT(<em>)与COUNT(1)都是通过主键索引统计行数的。如果该表有二级索引，`COUNT(</em>)<code>与</code>COUNT(1)`会用<strong>占用空间最小</strong>的二级索引字段作统计。</p>
+<h2>COUNT(*) COUNT(1) COUNT(id) COUNT(普通字段)有区别吗？</h2>
+<p>先说结论，在高版本的MySQL（5.5及以后），count(1)比count(*)是没有区别的。</p>
+<p>COUNT()在统计某个列值的数量时，不会统计NULL。当COUNT内的表达式确定不为NULL时，实际上是在统计所有行数。</p>
+<p>如果表只有一个主键索引，没有其他二级索引，那么COUNT(<em>)与COUNT(1)都是通过主键索引统计行数的。如果该表有二级索引，且二级索引不为NULL，`COUNT(</em>)<code>与</code>COUNT(1)`会用<strong>占用空间最小</strong>的二级索引字段作统计。</p>
 <p>补充：MyISAM在统计表的总行数时会很快，原因是MyISAM对于表的行数作了优化，具体做法有一个变量用于存储表的总行数。但是，如果加了WHERE查询条件，该优化将不起作用。</p>
 
             </div>
