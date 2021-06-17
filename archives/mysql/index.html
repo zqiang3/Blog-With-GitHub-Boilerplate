@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/21d0243d9a352d61e1aaab1ceea274d6.json"
+            api: "/Blog-With-GitHub-Boilerplate/764ae6763c865ecb3a6c23703cd49114.json"
         }
     </script>
     <script>
@@ -150,6 +150,47 @@ InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 <p>键值为NULL的记录怎么在B+树中存放的？答案是放在B+树的最左边。原因是InnoDB有这样的规定：</p>
 <blockquote><p>We define the SQL null to be the smallest possible value of a field.</p>
 </blockquote>
+<p>补充：NULL字段的数据，只能使用IS NULL查询出来，使用= NULL或!= VALUE都不会查出NULL的数据。
+当使用COUNT(COLUMN)函数进行统计时，NULL的数据不会被计入统计。
+判断列值是否为NULL，必须使用IS NULL和IS NOT NULL。不能使用= NULL或!= NULL，因为在MySQL中，NULL与任何值比较永远返回NULL。</p>
+<h2>有哪些语句会造成MySQL做全表扫描？</h2>
+<table>
+<thead><tr>
+<th>语句</th>
+<th>是否做全表扫描</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IS NULL</td>
+<td>否</td>
+</tr>
+<tr>
+<td>IS NOT NULL</td>
+<td>否</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>否</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>否</td>
+</tr>
+<tr>
+<td>NOT IN</td>
+<td>否</td>
+</tr>
+<tr>
+<td>COUNT(*)</td>
+<td>是</td>
+</tr>
+<tr>
+<td>LIKE '%xxx'</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
 <h2>InnoDB的事务隔离是如何实现的？</h2>
 <h3>四种隔离级别</h3>
 <p>未提交读(read uncommitted)，提交读(read committed)，可重复读(repeatable read)，串行化(serializable)。</p>
