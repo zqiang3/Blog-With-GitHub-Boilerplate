@@ -8,10 +8,16 @@ source_dir = "../src/"
 build_dir = "../dist/"
 index_page_size = 10
 archives_page_size = 20
+# template = {
+#     "name": "Galileo",
+#     "type": "local",
+#     "path": "../Galileo"
+# }
 template = {
-    "name": "Galileo",
-    "type": "local",
-    "path": "../Galileo"
+    "name": "Kepler",
+    "type": "git",
+    "url": "https://github.com/AlanDecode/Maverick-Theme-Kepler.git",
+    "branch": "latest"
 }
 enable_jsdelivr = {
     "enabled": False,
@@ -21,12 +27,12 @@ enable_jsdelivr = {
 # 站点设置
 site_name = "君祁的技术博客"
 site_logo = "${static_prefix}logo.png"
-site_build_date = "2019-12-18T16:51+08:00"
+site_build_date = "2021-06-16T10:00+08:00"
 author = "君祁"
 email = "zqiang33@163.com"
 author_homepage = "https://www.imalan.cn"
 description = "只有一种英雄主义，就是看清生活真相之后依然热爱生活。"
-key_words = ['Maverick', '君祁', 'Galileo', 'blog']
+key_words = ['君祁', 'blog']
 language = 'zh-CN'
 external_links = [
     {
