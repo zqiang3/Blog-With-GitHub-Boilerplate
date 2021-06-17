@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/6571326c98dec85ef6b19cd30cd8811d.json"
+            api: "/Blog-With-GitHub-Boilerplate/ae80007a9b1262ed944d9822d664a5ff.json"
         }
     </script>
     <script>
@@ -157,47 +157,56 @@ InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 <table>
 <thead><tr>
 <th>语句</th>
-<th>是否会做全表扫描</th>
-<th>说明</th>
+<th>是否使用索引</th>
+<th>是否使用全表扫描</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>IS NULL</td>
-<td>不会</td>
-<td>走索引</td>
+<td>可能</td>
+<td>可能</td>
 </tr>
 <tr>
 <td>IS NOT NULL</td>
-<td>不会</td>
-<td>走索引</td>
+<td>可能</td>
+<td>可能</td>
 </tr>
 <tr>
 <td>!=</td>
-<td>可能不会</td>
-<td>数据库根据具体情况决定</td>
+<td>可能</td>
+<td>可能</td>
 </tr>
 <tr>
 <td>IN</td>
-<td>可能不会</td>
-<td>数据库根据具体情况决定</td>
+<td>可能</td>
+<td>可能</td>
 </tr>
 <tr>
 <td>NOT IN</td>
-<td>可能不会</td>
-<td></td>
+<td>可能</td>
+<td>可能</td>
 </tr>
 <tr>
 <td>COUNT(*)</td>
-<td>会</td>
-<td></td>
+<td>否</td>
+<td>是</td>
 </tr>
 <tr>
 <td>LIKE '%xxx'</td>
-<td>会</td>
+<td>否</td>
+<td>是</td>
 </tr>
 </tbody>
 </table>
+<p>使不使用索引的依据是什么？
+IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么时候索引，什么时候采用全表扫描呢？</p>
+<p>答案是数据库会根据查询的成本决定何时走索引查询，何时做全表扫描。对二级索引来说，成本主要有两个方面：</p>
+<ul>
+<li>读取二级索引记录的成本</li>
+<li>执行回表操作的成本</li>
+</ul>
+<p>当执行回表操作的次数比较多，达到一定比例时，数据库经过计算分析使用二级索引再回表的查询成本超过了全表扫描的成本，就会使用全表扫描。</p>
 <h2>InnoDB的事务隔离是如何实现的？</h2>
 <h3>四种隔离级别</h3>
 <p>未提交读(read uncommitted)，提交读(read committed)，可重复读(repeatable read)，串行化(serializable)。</p>
