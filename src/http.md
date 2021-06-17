@@ -1,3 +1,18 @@
+---
+layout: post
+title: HTTP
+slug: http
+date: 2021-06-17 14:47:10
+status: publish
+author: 君祁
+categories:
+- Maverick
+  tags:
+- 网络
+- http
+  excerpt: HTTP
+---
+
 ## HTTP2的特性
 * 多路复用
 * 头部压缩
