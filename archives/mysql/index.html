@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/764ae6763c865ecb3a6c23703cd49114.json"
+            api: "/Blog-With-GitHub-Boilerplate/6571326c98dec85ef6b19cd30cd8811d.json"
         }
     </script>
     <script>
@@ -157,37 +157,44 @@ InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 <table>
 <thead><tr>
 <th>语句</th>
-<th>是否做全表扫描</th>
+<th>是否会做全表扫描</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>IS NULL</td>
-<td>否</td>
+<td>不会</td>
+<td>走索引</td>
 </tr>
 <tr>
 <td>IS NOT NULL</td>
-<td>否</td>
+<td>不会</td>
+<td>走索引</td>
 </tr>
 <tr>
 <td>!=</td>
-<td>否</td>
+<td>可能不会</td>
+<td>数据库根据具体情况决定</td>
 </tr>
 <tr>
 <td>IN</td>
-<td>否</td>
+<td>可能不会</td>
+<td>数据库根据具体情况决定</td>
 </tr>
 <tr>
 <td>NOT IN</td>
-<td>否</td>
+<td>可能不会</td>
+<td></td>
 </tr>
 <tr>
 <td>COUNT(*)</td>
-<td>是</td>
+<td>会</td>
+<td></td>
 </tr>
 <tr>
 <td>LIKE '%xxx'</td>
-<td>是</td>
+<td>会</td>
 </tr>
 </tbody>
 </table>
