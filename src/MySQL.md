@@ -46,6 +46,22 @@ NULL值是怎么在记录中存储的：在MySQL中，每一条记录都有固�
 键值为NULL的记录怎么在B+树中存放的？答案是放在B+树的最左边。原因是InnoDB有这样的规定：
 >We define the SQL null to be the smallest possible value of a field.
 
+补充：NULL字段的数据，只能使用IS NULL查询出来，使用= NULL或!= VALUE都不会查出NULL的数据。
+当使用COUNT(COLUMN)函数进行统计时，NULL的数据不会被计入统计。
+判断列值是否为NULL，必须使用IS NULL和IS NOT NULL。不能使用= NULL或!= NULL，因为在MySQL中，NULL与任何值比较永远返回NULL。
+
+
+## 有哪些语句会造成MySQL做全表扫描？
+| 语句 | 是否做全表扫描 |
+| --- | --- |
+| IS NULL | 否 |
+| IS NOT NULL | 否 |
+| !=  | 否 |
+| IN  | 否 |
+| NOT IN | 否 |
+| COUNT(*)  |  是 |
+| LIKE '%xxx' | 是 |
+
 ## InnoDB的事务隔离是如何实现的？
 ### 四种隔离级别
 未提交读(read uncommitted)，提交读(read committed)，可重复读(repeatable read)，串行化(serializable)。
