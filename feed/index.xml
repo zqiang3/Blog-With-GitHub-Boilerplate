@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Thu, 17 Jun 2021 03:36:42 +0806</lastBuildDate><pubDate>Thu, 17 Jun 2021 03:36:42 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Thu, 17 Jun 2021 07:04:49 +0806</lastBuildDate><pubDate>Thu, 17 Jun 2021 07:04:49 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
 &lt;h3&gt;L3 Heading&lt;/h3&gt;
 &lt;h4&gt;L4 Heading&lt;/h4&gt;
 &lt;h5&gt;L5 Heading&lt;/h5&gt;
@@ -149,9 +149,9 @@ InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。&lt;/p
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;使不使用索引的依据是什么？
-IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么时候索引，什么时候采用全表扫描呢？&lt;/p&gt;
-&lt;p&gt;答案是数据库会根据查询的成本决定何时走索引查询，何时做全表扫描。对二级索引来说，成本主要有两个方面：&lt;/p&gt;
+&lt;p&gt;使不使用索引的依据是什么？&lt;/p&gt;
+&lt;p&gt;IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么时候索引，什么时候采用全表扫描呢？&lt;/p&gt;
+&lt;p&gt;答案是：数据库会根据查询的成本决定何时走索引查询，何时做全表扫描。对二级索引来说，成本主要有两个方面：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;读取二级索引记录的成本&lt;/li&gt;
 &lt;li&gt;执行回表操作的成本&lt;/li&gt;
@@ -162,8 +162,8 @@ IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么
 &lt;p&gt;未提交读(read uncommitted)，提交读(read committed)，可重复读(repeatable read)，串行化(serializable)。&lt;/p&gt;
 &lt;p&gt;标准SQL事务隔离级别的实现是依赖锁的，但使用锁的方式实现隔离级别需要频繁地加解锁，很容易出现读写冲突。为了不加锁解决读写冲突的问题，MySQL引入的MVCC机制。
 在读提交和可重复读的隔离级别下，InnoDB会创建一个视图（快照），访问数据的时候以视图的逻辑结果为准。在可重复读的隔离级别下，这个视图是在事务启动时创建的。
-在读提交的隔离级别下，视图是在每条sql语句开始执行时创建的。在读未提交的隔离级别下，不提供隔离措施，不会创建视图，但更新某行数据时加共享锁。串行化的隔离级别是通过加锁的方式
-避免并行访问。&lt;/p&gt;
+在读提交的隔离级别下，视图是在每条sql语句开始执行时创建的。在读未提交的隔离级别下，不提供隔离措施，不会创建视图，但更新某行数据时加共享锁。
+串行化的隔离级别是通过加锁的方式避免并行访问。&lt;/p&gt;
 &lt;h3&gt;锁定读和一致性非锁定读&lt;/h3&gt;
 &lt;p&gt;锁定读：在一个事务中进行查询时，主动给读加锁。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;SELECT ... LOCK IN SHARE MODE  &lt;span class="c1"&gt;# 加了行共享锁&lt;/span&gt;
@@ -240,4 +240,34 @@ commit;
 
 #事务B提交成功并插入数据&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。&lt;/p&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/mysql/</guid><pubDate>Wed, 16 Jun 2021 15:07:17 +0806</pubDate></item></channel></rss>
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/mysql/</guid><pubDate>Wed, 16 Jun 2021 15:07:17 +0806</pubDate></item><item><title>HTTP</title><link>/Blog-With-GitHub-Boilerplate/archives/http/</link><description>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;多路复用&lt;/li&gt;
+&lt;li&gt;头部压缩&lt;/li&gt;
+&lt;li&gt;服务器推送&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;多路复用允许单一的连接同时发起多重的请求-响应。
+实现的原理是通过二进制分帧，HTTP/2将所有传输的信息分割为帧，并对它们采用二进制格式的编码。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;头部压缩的原理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在HTTP/1中，请求和响应都是由状态行、请求/响应头部、消息主体三部分组成，一般消息主体都会经过gzip压缩，或者本身就是经过压缩后的二进制文件（图片、
+音频），但状态行和头部却是以纯文本传输的，没有经过任何的压缩。&lt;/p&gt;
+&lt;p&gt;HTTP/2对头部数据也进行了压缩，并且在客户端和服务端之间：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;维护一份相同的静态字典，包含常见的头部名称，以及特别常见的头部名称与值的组合。&lt;/li&gt;
+&lt;li&gt;维护一份相同的动态字典，可以动态地添加内容。&lt;/li&gt;
+&lt;li&gt;支持哈夫曼编码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;作用：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对于完全匹配的头部键值对，例如method: GET，可以直接使用一个字符表示。&lt;/li&gt;
+&lt;li&gt;对于头部名称可以匹配的键值对，例如cookie: xxx，可以将名称使用一个字符表示。&lt;/li&gt;
+&lt;li&gt;对于不完全匹配静态字典的键值对，可以添加到动态字典中，在后续的请求中也可以使用一个字符表示了。&lt;/li&gt;
+&lt;li&gt;对于在静态、动态字典中都不存在的内容，可以使用哈夫曼编码来减小体积。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;HTTP1.1的pipeline与HTTP/2的多路复用有什么区别？&lt;/h2&gt;
+&lt;p&gt;HTTP1.0使用的是短连接，每次请求响应完成会断开连接，效率非常低。&lt;/p&gt;
+&lt;p&gt;HTTP1.1增加了支持持久化连接，也就是长连接，在一个连接上可以进行多次请求/响应。但是多个请求/响应只能串行，后一个请求/响应只能在前一个请求/响应完成后才能发起。&lt;/p&gt;
+&lt;p&gt;HTTP1.1提供了管线化技术，可以将多个http请求打包在一起发给服务端，但是返回的响应也必须是按请求的顺序返回，如果某个请求耗时很长，就会阻塞后面的请求，有队头阻塞问题。&lt;/p&gt;
+&lt;p&gt;HTTP/2提出了多路复用技术，在一个tcp连接上可以并行多个请求/响应，不同请求/响应之间互不影响。原理是将消息分成多个二进制帧，二进制帧带有更多信息，标识自己属于哪个请求/响应，
+这样多个请求/响应可以并行处理，不会相互阻塞。&lt;/p&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/http/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item></channel></rss>

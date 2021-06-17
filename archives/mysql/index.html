@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/ae80007a9b1262ed944d9822d664a5ff.json"
+            api: "/Blog-With-GitHub-Boilerplate/8f32e8cc89a452d0536865c5407fea33.json"
         }
     </script>
     <script>
@@ -96,7 +96,7 @@
                     
                     <section>
                         
-    <div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div>
+    <div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div>
 
                     </section>
                     <section hidden class="sidebar-external-link">
@@ -199,9 +199,9 @@ InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。</p>
 </tr>
 </tbody>
 </table>
-<p>使不使用索引的依据是什么？
-IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么时候索引，什么时候采用全表扫描呢？</p>
-<p>答案是数据库会根据查询的成本决定何时走索引查询，何时做全表扫描。对二级索引来说，成本主要有两个方面：</p>
+<p>使不使用索引的依据是什么？</p>
+<p>IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么时候索引，什么时候采用全表扫描呢？</p>
+<p>答案是：数据库会根据查询的成本决定何时走索引查询，何时做全表扫描。对二级索引来说，成本主要有两个方面：</p>
 <ul>
 <li>读取二级索引记录的成本</li>
 <li>执行回表操作的成本</li>
@@ -212,8 +212,8 @@ IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么
 <p>未提交读(read uncommitted)，提交读(read committed)，可重复读(repeatable read)，串行化(serializable)。</p>
 <p>标准SQL事务隔离级别的实现是依赖锁的，但使用锁的方式实现隔离级别需要频繁地加解锁，很容易出现读写冲突。为了不加锁解决读写冲突的问题，MySQL引入的MVCC机制。
 在读提交和可重复读的隔离级别下，InnoDB会创建一个视图（快照），访问数据的时候以视图的逻辑结果为准。在可重复读的隔离级别下，这个视图是在事务启动时创建的。
-在读提交的隔离级别下，视图是在每条sql语句开始执行时创建的。在读未提交的隔离级别下，不提供隔离措施，不会创建视图，但更新某行数据时加共享锁。串行化的隔离级别是通过加锁的方式
-避免并行访问。</p>
+在读提交的隔离级别下，视图是在每条sql语句开始执行时创建的。在读未提交的隔离级别下，不提供隔离措施，不会创建视图，但更新某行数据时加共享锁。
+串行化的隔离级别是通过加锁的方式避免并行访问。</p>
 <h3>锁定读和一致性非锁定读</h3>
 <p>锁定读：在一个事务中进行查询时，主动给读加锁。</p>
 <div class="highlight"><pre><span></span>SELECT ... LOCK IN SHARE MODE  <span class="c1"># 加了行共享锁</span>
@@ -295,6 +295,13 @@ commit;
 
     
     <section id="content-pager">
+        
+            <div class="next">
+                <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/http/">
+                    <time>June 17 2021</time>
+                    <span>HTTP</span>
+                </a>
+            </div>
         
         
             <div class="prev">
