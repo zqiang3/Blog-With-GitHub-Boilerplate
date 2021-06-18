@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 03:39:20 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 03:39:20 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 03:44:23 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 03:44:23 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
 &lt;h3&gt;L3 Heading&lt;/h3&gt;
 &lt;h4&gt;L4 Heading&lt;/h4&gt;
 &lt;h5&gt;L5 Heading&lt;/h5&gt;
@@ -314,7 +314,7 @@ commit;
 &lt;/ol&gt;
 &lt;h2&gt;跳跃表&lt;/h2&gt;
 &lt;p&gt;链接：&lt;a href="https://www.jianshu.com/p/9d8296562806"&gt;跳跃表的实现（全网最详细的分析）&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;当有序集合中元素数量很多，或者元素的成员是较长的字符串，就会使用跳跃表作为底层实现。&lt;/p&gt;
+&lt;p&gt;跳跃表的数据结构(c源码)&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="nc"&gt;zskiplistNode&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="nc"&gt;zskiplistNode&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;backward&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="kt"&gt;double&lt;/span&gt; &lt;span class="n"&gt;score&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -331,7 +331,6 @@ commit;
   &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;level&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// 表头节点的层高不会记录&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;zskiplist&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;figure&gt;&lt;img data-width="-1" data-height="-1" src="https://user-gold-cdn.xitu.io/2019/6/17/16b650948652b4ec?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="跳跃表的数据结构" /&gt;&lt;figcaption&gt;跳跃表的数据结构&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;跳跃表由以下几部分组成：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;表头：不存储元素，负责维护指向第一个元素各层的指针。&lt;/li&gt;
@@ -339,8 +338,10 @@ commit;
 &lt;li&gt;跳跃表节点：保存元素值，以及多个层。&lt;/li&gt;
 &lt;li&gt;层：保存指向其他层的指针。高层的指针越过的元素数量大于等于低层的指针。查询时总是从高层的先开始搜索，然后慢慢降低层次，直到找到相应的元素。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img data-width="-1" data-height="-1" src="https://user-gold-cdn.xitu.io/2019/6/17/16b650948652b4ec?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="跳跃表的数据结构" /&gt;&lt;figcaption&gt;跳跃表的数据结构&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;跳跃表的查询复杂度可以接近O(logN)。
 跳跃表的查询效率可以与平衡树媲美，但设计与实现却比平衡树简单得多。设计思想是通过空间换时间。通过建立多层链表，高层的链表比低层的跨度大，就可以加快查询速度。&lt;/p&gt;
+&lt;p&gt;当有序集合中元素数量很多，或者元素的成员是较长的字符串，就会使用跳跃表作为底层实现。&lt;/p&gt;
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/redis/</guid><pubDate>Thu, 17 Jun 2021 17:15:16 +0806</pubDate></item><item><title>聊聊Java8的函数式编程</title><link>/Blog-With-GitHub-Boilerplate/archives/java_function_program/</link><description>&lt;p&gt;函数式编程是Java8的一大特色。&lt;/p&gt;
 &lt;h2&gt;Stream&lt;/h2&gt;
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/java_function_program/</guid><pubDate>Fri, 18 Jun 2021 10:30:05 +0806</pubDate></item><item><title>谈谈数据库的索引</title><link>/Blog-With-GitHub-Boilerplate/archives/mysql_index/</link><description>&lt;h2&gt;索引有哪几种实现的方式？&lt;/h2&gt;
