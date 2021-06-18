@@ -21,7 +21,7 @@ struct sdshdr {
   int len;
   int free;
   char buf[];
-}
+};
 ```
 
 **优点**
@@ -59,6 +59,8 @@ typedef struct list {
 5. 多态。
 
 ## 跳跃表
+链接：[跳跃表的实现（全网最详细的分析）](https://www.jianshu.com/p/9d8296562806)
+
 当有序集合中元素数量很多，或者元素的成员是较长的字符串，就会使用跳跃表作为底层实现。
 
 ```c
@@ -75,9 +77,11 @@ typedef struct zskiplistNode {
 typedef struct zskiplist {
   struct zskiplistNode *header, *tail;
   unsigned long length;
-  int level;  # 表头节点的层主不会记录
+  int level;  // 表头节点的层高不会记录
 } zskiplist;
 ```
+
+![跳跃表的数据结构](https://user-gold-cdn.xitu.io/2019/6/17/16b650948652b4ec?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 跳跃表由以下几部分组成：
 * 表头：不存储元素，负责维护指向第一个元素各层的指针。
