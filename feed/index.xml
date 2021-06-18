@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 08:58:53 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 08:58:53 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 13:36:57 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 13:36:57 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
 &lt;h3&gt;L3 Heading&lt;/h3&gt;
 &lt;h4&gt;L4 Heading&lt;/h4&gt;
 &lt;h5&gt;L5 Heading&lt;/h5&gt;
@@ -110,6 +110,18 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;figure&gt;&lt;img data-width="640" data-height="716" src="/Blog-With-GitHub-Boilerplate/archives/assets/e8772faa1e0dab73cacdd39a590f9539.jpg" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2&gt;为什么TIME_WAIT状态要保持2MSL？&lt;/h2&gt;
+&lt;p&gt;MSL是报文在网络中的最大生存时间，超过这个时间报文将被丢弃。&lt;/p&gt;
+&lt;p&gt;维持TIME_WAIT状态的目的有两个&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为了可靠地关闭TCP连接，确保当前连接的所有报文在网络上彻底消失&lt;/li&gt;
+&lt;li&gt;为了能正确处理延迟的重复报文，如果前后两个连接使用相同的网络四元组，避免前一个连接对后一个连接的影响。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;TCP连接中的一端在发送了FIN报文后如果没有收到相应的ACK报文，则会反复多次重传FIN报文，大约持续几分钟。处于TIME_WAIT状态的一端在收到重传的FIN报文时会重新计时。&lt;/p&gt;
+&lt;p&gt;为什么需要2倍的MSL呢？
+第一个MSL是为了保证客户端发送的ACK生命周期结束，第二个MSL是确保服务端发送的FIN生命周期结束。&lt;/p&gt;
+&lt;p&gt;客户端发送ACK，经过多长时间到达服务是不知道的，假设这个时间为t，则0&amp;lt;t&amp;lt;MSL。如果服务端没有收到ACK，会重传FIN，FIN也需要经过最大MSL的时间到达客户端，
+因此TIME_WAIT需要维持2MSL才能收到重传的FIN报文。&lt;/p&gt;
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/tcp/</guid><pubDate>Wed, 16 Jun 2021 15:07:17 +0806</pubDate></item><item><title>MySQL</title><link>/Blog-With-GitHub-Boilerplate/archives/mysql/</link><description>&lt;h2&gt;聚簇索引与非聚簇索引&lt;/h2&gt;
 &lt;p&gt;聚簇索引(clustered index)：聚簇索引的叶节点存储了整行数据。&lt;/p&gt;
 &lt;p&gt;非聚簇索引：索引树的叶子节点只存储索引字段和主键的值，不存放整行数据。非聚簇索引也称为二级索引。&lt;/p&gt;
@@ -272,6 +284,53 @@ commit;
 
 #事务B提交成功并插入数据&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。&lt;/p&gt;
+&lt;h2&gt;两段锁&lt;/h2&gt;
+&lt;p&gt;加锁阶段和解锁阶段&lt;/p&gt;
+&lt;h2&gt;InnoDB加锁处理分析&lt;/h2&gt;
+&lt;p&gt;MVCC(Multi-Version Concurrency Control)：多版本并发控制
+Lock-Based Concurrency Control：基于锁的并发控制&lt;/p&gt;
+&lt;p&gt;MVCC的好处：读不加锁，读写不冲突，极大地提高系统的并发能力。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;索引对加锁的影响&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;考虑下面的表和更新语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;create table t(
+c int
+);
+
+insert into t values(1);
+insert into t values(5);
+insert into t values(10);
+
+update t set c = 100 where c = 1;
+
+alter table t add index id_c (c);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;c字段加索引与不加索引有区别吗？事实上，如果不给c字段加索引，上面的更新语句会把整张表的所有数据行加行锁。这听起来有点不可思议，但是sql运行过程中，
+由于没有索引，存储引擎无法通过索引快速过滤，就会将所有记录加锁后，全部返回给server层进行过滤。&lt;/p&gt;
+&lt;p&gt;但在实际使用过程当中，MySQL做了一些改进，在MySQL Server过滤条件，发现不满足后，会调用unlock_row方法，把不满足条件的记录释放锁 (违背了二段锁协议的约束)。
+这样做，保证了最后只会持有满足条件记录上的锁，但是每条记录的加锁操作还是不能省略的。可见即使是MySQL，为了效率也是会违反规范的。（参见《高性能MySQL》中文第三版p181）&lt;/p&gt;
+&lt;h2&gt;解决不可重复读，使用MVCC与使用锁实现的区别&lt;/h2&gt;
+&lt;p&gt;InnoDB在RR（可重复读）隔离级别下，在事务开始时开启一个快照，在整个事务期间读的都是相同的快照数据，因此没有不可重复读的问题。
+MVCC使用快照读解决不可重复读的问题，不需要加锁。&lt;/p&gt;
+&lt;p&gt;使用锁来解决不可重复读，需要在读数据时加锁，这样其他事务在解锁前就无法修改这些数据了。锁只能锁住已经存在的数据，却无法锁住insert的数据，
+因此不能解决幻读的问题。使用锁还会导致读写冲突，降低数据库的并发能力。&lt;/p&gt;
+&lt;h2&gt;悲观锁与乐观锁&lt;/h2&gt;
+&lt;p&gt;悲观锁与乐观锁是两种不同的思想，用于解决并发场景下的数据竞争问题。&lt;/p&gt;
+&lt;p&gt;悲观锁需要加真实的锁，读取数据时加共享锁（读锁），写数据时加排他锁（写乐）。&lt;/p&gt;
+&lt;p&gt;乐观锁并不真正加锁，只是在更新数据的时候判断一下数据是不是已经被修改，如果数据被修改则放弃操作，否则执行操作。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;乐观锁的实现方式&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CAS&lt;/li&gt;
+&lt;li&gt;版本号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CAS操作逻辑如下：如果内存位置V的值等于预期的A值，则将该位置更新为新值B，否则不进行任何操作。&lt;/p&gt;
+&lt;p&gt;版本号机制的基本思路是在数据中增加一个字段version，表示数据的版本号，每当数据被修改时，版本号加1。当查询数据时，将该数据的版本号一起查出来；
+更新数据时，判断一下当前版本号与之前读取的版本号是否一致，如果一致才进行操作，否则放弃操作。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CAS缺点&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ABA问题&lt;/li&gt;
+&lt;li&gt;如果并发冲突严重，CAS机制会频繁失败，一直重试，消耗CPU严重。&lt;/li&gt;
+&lt;li&gt;CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的。&lt;/li&gt;
+&lt;/ul&gt;
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/mysql/</guid><pubDate>Wed, 16 Jun 2021 15:07:17 +0806</pubDate></item><item><title>HTTP</title><link>/Blog-With-GitHub-Boilerplate/archives/http/</link><description>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;多路复用&lt;/li&gt;

@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/0f10dbc3a19b3be205ee499bbabfd51d.json"
+            api: "/Blog-With-GitHub-Boilerplate/ba91429e3d4a7bfa2aaa0fa83a7de2de.json"
         }
     </script>
     <script>
@@ -160,6 +160,18 @@
 </li>
 </ul>
 <p><figure><img data-width="640" data-height="716" src="/Blog-With-GitHub-Boilerplate/archives/assets/e8772faa1e0dab73cacdd39a590f9539.jpg" alt="" /></figure></p>
+<h2>为什么TIME_WAIT状态要保持2MSL？</h2>
+<p>MSL是报文在网络中的最大生存时间，超过这个时间报文将被丢弃。</p>
+<p>维持TIME_WAIT状态的目的有两个</p>
+<ul>
+<li>为了可靠地关闭TCP连接，确保当前连接的所有报文在网络上彻底消失</li>
+<li>为了能正确处理延迟的重复报文，如果前后两个连接使用相同的网络四元组，避免前一个连接对后一个连接的影响。</li>
+</ul>
+<p>TCP连接中的一端在发送了FIN报文后如果没有收到相应的ACK报文，则会反复多次重传FIN报文，大约持续几分钟。处于TIME_WAIT状态的一端在收到重传的FIN报文时会重新计时。</p>
+<p>为什么需要2倍的MSL呢？
+第一个MSL是为了保证客户端发送的ACK生命周期结束，第二个MSL是确保服务端发送的FIN生命周期结束。</p>
+<p>客户端发送ACK，经过多长时间到达服务是不知道的，假设这个时间为t，则0&lt;t&lt;MSL。如果服务端没有收到ACK，会重传FIN，FIN也需要经过最大MSL的时间到达客户端，
+因此TIME_WAIT需要维持2MSL才能收到重传的FIN报文。</p>
 </article>
     </section>
 
