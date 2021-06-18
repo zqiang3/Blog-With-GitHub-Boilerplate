@@ -32,19 +32,20 @@
         });
     </script>
     
-<title>君祁的技术博客</title>
+<title>谈谈数据库的索引 - 君祁的技术博客</title>
 <meta name="author" content="君祁" />
-<meta name="description" content="只有一种英雄主义，就是看清生活真相之后依然热爱生活。" />
-<meta property="og:title" content="君祁的技术博客" />
-<meta property="og:description" content="只有一种英雄主义，就是看清生活真相之后依然热爱生活。" />
+<meta name="description" content="mysql index" />
+<meta property="og:title" content="谈谈数据库的索引 - 君祁的技术博客" />
+<meta property="og:description" content="mysql index" />
 <meta property="og:site_name" content="君祁的技术博客" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="/Blog-With-GitHub-Boilerplate/" />
-<meta property="og:image" content="君祁的技术博客" />
-<meta name="twitter:title" content="君祁的技术博客" />
-<meta name="twitter:description" content="只有一种英雄主义，就是看清生活真相之后依然热爱生活。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/Blog-With-GitHub-Boilerplate/archives/mysql_index/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2021-06-18T10:45:11-00.00" />
+<meta name="twitter:title" content="谈谈数据库的索引 - 君祁的技术博客" />
+<meta name="twitter:description" content="mysql index" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:image" content="/Blog-With-GitHub-Boilerplate/logo.png" />
+<meta name="twitter:image" content="" />
 
 
     
@@ -53,7 +54,7 @@
 
     </head>
     
-    <body class="archive">
+    <body class="content">
         <header>
             <div class="container">
                 <section>
@@ -85,7 +86,7 @@
                     
                     <section class="sidebar-nav">
                         
-                            <div class="current" ><span><a href="/Blog-With-GitHub-Boilerplate/">首页</a></span></div>
+                            <div class="None" ><span><a href="/Blog-With-GitHub-Boilerplate/">首页</a></span></div>
                         
                             <div class="None" ><span><a href="/Blog-With-GitHub-Boilerplate/archives/">归档</a></span></div>
                         
@@ -95,7 +96,7 @@
                     
                     <section>
                         
-    <div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">谈谈数据库的索引</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis/">redis设计与实现</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/java/">java</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">聊聊Java8的函数式编程</a></li></ul></div>
+    <div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">谈谈数据库的索引</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis/">redis设计与实现</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/java/">java</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">聊聊Java8的函数式编程</a></li></ul></div>
 
                     </section>
                     <section hidden class="sidebar-external-link">
@@ -111,68 +112,66 @@
                 </aside>
                 <div id="content-wrapper">
                     <div id="content">
-
     <section>
-        <h1 class="page-title">RECENT POSTS</h1>
-        <div id="content-list">
-            
-            <section class="card-list">
+        <h1 class="post-title">谈谈数据库的索引</h1>
+        <p class="post-meta">
+            <time>June 18 2021</time>
+            <span class="tags">
                 
-                    <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">
-                        <time>June 18 2021</time>
-                        <span>谈谈数据库的索引</span>
-                    </a>
+                <span>
+                    <a href="/Blog-With-GitHub-Boilerplate/tag/mysql/">#mysql</a>
+                </span>
                 
-                    <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">
-                        <time>June 18 2021</time>
-                        <span>聊聊Java8的函数式编程</span>
-                    </a>
+                <span>
+                    <a href="/Blog-With-GitHub-Boilerplate/tag/index/">#index</a>
+                </span>
                 
-                    <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/redis/">
-                        <time>June 17 2021</time>
-                        <span>redis设计与实现</span>
-                    </a>
-                
-                    <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/http/">
-                        <time>June 17 2021</time>
-                        <span>HTTP</span>
-                    </a>
-                
-                    <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/mysql/">
-                        <time>June 16 2021</time>
-                        <span>MySQL</span>
-                    </a>
-                
-                    <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/typography/">
-                        <time>December 18 2019</time>
-                        <span>Hello World!</span>
-                    </a>
-                
-            </section>
-        </div>
+            </span>
+        </p>
+        <article class="yue"><h2>索引有哪几种实现的方式？</h2>
+<p>索引的实现方式有很多种，常见的三种数据结构是哈希表、有序数组和搜索树。</p>
+<p>哈希表的查询复杂度可以接近O(1)，适合做等值查询，但做范围查询要做全表扫描，效率非常低。</p>
+<p>有序数组做等值查询和范围查询效率都很高，但更新数据的成本很高。</p>
+<p>平衡二叉搜索树的查询和更新时间复杂度都是O(logN)。但二叉树的高度可能很高，查询时需要访问多个数据块，就会有多次读取磁盘的操作。为了让一个查询尽量少地读磁盘，
+应用使用N叉树（多路查找树），使索引树的高度尽量少。一般树根的数据块是会加载到内存的，一个高度为4的N叉树只需要3次访问磁盘。N叉树由于在读写上的性能优点，
+以及适配磁盘的访问模式，被广泛应用在数据库引擎中。</p>
+</article>
     </section>
 
     
     <section id="content-pager">
         
         
+            <div class="prev">
+                <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">
+                    <time>June 18 2021</time>
+                    <span>聊聊Java8的函数式编程</span>
+                </a>
+            </div>
+        
     </section>
+    
 
+    
 
     <script>
-        document.body.classList.add('archive');
-        document.body.classList.remove('content');
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
     </script>
-
 </div>
                     <footer>
                         <span>Copyright © 2021 君祁</span>
                         
+    
+
                         
                     </footer>
                 </div>
                 
-<aside id="toc-container" class="no-scrollbar no-bg"></aside>
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
 
             </div>
         </main>
