@@ -32,6 +32,7 @@ struct sdshdr {
 5. 兼容部分c字符串函数。
 
 ## 链表
+**定义**
 
 ```c
 typedef struct listNode {
@@ -61,7 +62,8 @@ typedef struct list {
 ## 跳跃表
 链接：[跳跃表的实现（全网最详细的分析）](https://www.jianshu.com/p/9d8296562806)
 
-跳跃表的数据结构(c源码)
+**定义**
+
 ```c
 typedef struct zskiplistNode {
   struct zskiplistNode *backward;
