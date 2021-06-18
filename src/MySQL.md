@@ -6,7 +6,7 @@ date: 2021-06-16 15:07:17
 status: publish
 author: 君祁
 categories:
-  - Maverick 
+  - 数据库
 tags:
   - 数据库
   - MySQL
