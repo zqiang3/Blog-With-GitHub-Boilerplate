@@ -109,52 +109,13 @@ consistent read是InnoDB在RC和RR隔离级别下进行SELECT查询的默认模�
 在RR隔离级别下，InnoDB通过快照读，解决了不可重复读的问题，通过间隙锁，解决了幻读的问题。
 通过MVCC，InnoDB可以在RC隔离级别解决不可重复读的问题，可以在RR隔离级别解决幻读的问题。
 
-### 只靠MVCC是否能解决幻读的问题？
-```
-begin;
-
-#假设users表为空，下面查出来的数据为空
-
-select * from users; #没有加锁
-
-#此时另一个事务提交了，且插入了一条id=1的数据
-
-select * from users; #读快照，查出来的数据为空
-
-update users set name='mysql' where id=1;#update是当前读，所以更新成功，并生成一个更新的快照
-
-select * from users; #读快照，查出来id为1的一条记录，因为MVCC可以查到当前事务生成的快照
-
-commit;
-```
-
-```
-begin;
-
-#假设users表为空，下面查出来的数据为空
-
-select * from users lock in share mode; #加上共享锁
-
-#此时另一个事务B想提交且插入了一条id=1的数据，由于有间隙锁，所以要等待
-
-select * from users; #读快照，查出来的数据为空
-
-update users set name='mysql' where id=1;#update是当前读，由于不存在数据，不进行更新
-
-select * from users; #读快照，查出来的数据为空
-
-commit;
-
-#事务B提交成功并插入数据
-```
-注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。
-
-## 两段锁
-加锁阶段和解锁阶段
-
 ## InnoDB加锁处理分析
+[链接](https://tech.meituan.com/2014/08/20/innodb-lock.html)
+
 MVCC(Multi-Version Concurrency Control)：多版本并发控制
 Lock-Based Concurrency Control：基于锁的并发控制
+
+两段锁：加锁阶段和解锁阶段
 
 MVCC的好处：读不加锁，读写不冲突，极大地提高系统的并发能力。
 
@@ -207,3 +168,58 @@ CAS操作逻辑如下：如果内存位置V的值等于预期的A值，则将该
 * ABA问题
 * 如果并发冲突严重，CAS机制会频繁失败，一直重试，消耗CPU严重。
 * CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的。
+
+## InnoDB中MVCC的实现
+在InnoDB中，每行数据会有两个额外的值来实现MVCC，一个值记录这行数据何时被创建，一个值记录这行数据何时过期（或者被删除）。实际中这个值存储的是事务的版本号，
+每开启一个新事务，事务的版本号就会加1。
+
+读取数据时，只会读到小于等于当前事务版本号的数据。通过MVCC，虽然每行记录都需要额外的存储空间，但可以减少锁的使用，大多数读操作都不用加锁。
+
+### RR隔离级别下，如何解决幻读？
+在RR隔离级别下，只靠MVCC，可以解决幻读吗？
+
+如果只是快照读
+```
+begin;
+
+#假设users表为空，下面查出来的数据为空
+
+select * from users; #没有加锁
+
+#此时另一个事务提交了，且插入了一条id=1的数据
+
+select * from users; #读快照，查出来的数据为空
+
+update users set name='mysql' where id=1;#update是当前读，所以更新成功，并生成一个更新的快照
+
+select * from users; #读快照，查出来id为1的一条记录，因为MVCC可以查到当前事务生成的快照
+
+commit;
+```
+
+```
+begin;
+
+#假设users表为空，下面查出来的数据为空
+
+select * from users lock in share mode; #加上共享锁
+
+#此时另一个事务B想提交且插入了一条id=1的数据，由于有间隙锁，所以要等待
+
+select * from users; #读快照，查出来的数据为空
+
+update users set name='mysql' where id=1;#update是当前读，由于不存在数据，不进行更新
+
+select * from users; #读快照，查出来的数据为空
+
+commit;
+
+#事务B提交成功并插入数据
+```
+注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。
+
+在RR级别下，事务A在update后加锁，可以避免幻读，加的这个锁，就是间隙锁。行锁和间隙锁的合并，称为Next-Key锁。
+
+修改数据后，不仅会在相应的行加行锁，同时也会在数据行两边的区间，加上间隙锁。这样其他事务就无法在两边的区间insert新的数据。
+
+行锁防止别的事务修改或删除数据，GAP锁该上别的事务新增数据，行锁和GAP锁结合共同解决了RR级别在写数据时的幻读问题。
