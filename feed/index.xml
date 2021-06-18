@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 13:36:57 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 13:36:57 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 14:04:02 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 14:04:02 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
 &lt;h3&gt;L3 Heading&lt;/h3&gt;
 &lt;h4&gt;L4 Heading&lt;/h4&gt;
 &lt;h5&gt;L5 Heading&lt;/h5&gt;
@@ -248,47 +248,11 @@ consistent read是InnoDB在RC和RR隔离级别下进行SELECT查询的默认模�
 &lt;/table&gt;
 &lt;p&gt;在RR隔离级别下，InnoDB通过快照读，解决了不可重复读的问题，通过间隙锁，解决了幻读的问题。
 通过MVCC，InnoDB可以在RC隔离级别解决不可重复读的问题，可以在RR隔离级别解决幻读的问题。&lt;/p&gt;
-&lt;h3&gt;只靠MVCC是否能解决幻读的问题？&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;begin;
-
-#假设users表为空，下面查出来的数据为空
-
-select * from users; #没有加锁
-
-#此时另一个事务提交了，且插入了一条id=1的数据
-
-select * from users; #读快照，查出来的数据为空
-
-update users set name='mysql' where id=1;#update是当前读，所以更新成功，并生成一个更新的快照
-
-select * from users; #读快照，查出来id为1的一条记录，因为MVCC可以查到当前事务生成的快照
-
-commit;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;begin;
-
-#假设users表为空，下面查出来的数据为空
-
-select * from users lock in share mode; #加上共享锁
-
-#此时另一个事务B想提交且插入了一条id=1的数据，由于有间隙锁，所以要等待
-
-select * from users; #读快照，查出来的数据为空
-
-update users set name='mysql' where id=1;#update是当前读，由于不存在数据，不进行更新
-
-select * from users; #读快照，查出来的数据为空
-
-commit;
-
-#事务B提交成功并插入数据&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。&lt;/p&gt;
-&lt;h2&gt;两段锁&lt;/h2&gt;
-&lt;p&gt;加锁阶段和解锁阶段&lt;/p&gt;
 &lt;h2&gt;InnoDB加锁处理分析&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://tech.meituan.com/2014/08/20/innodb-lock.html"&gt;链接&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;MVCC(Multi-Version Concurrency Control)：多版本并发控制
 Lock-Based Concurrency Control：基于锁的并发控制&lt;/p&gt;
+&lt;p&gt;两段锁：加锁阶段和解锁阶段&lt;/p&gt;
 &lt;p&gt;MVCC的好处：读不加锁，读写不冲突，极大地提高系统的并发能力。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;索引对加锁的影响&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;考虑下面的表和更新语句&lt;/p&gt;
@@ -331,6 +295,51 @@ MVCC使用快照读解决不可重复读的问题，不需要加锁。&lt;/p&gt;
 &lt;li&gt;如果并发冲突严重，CAS机制会频繁失败，一直重试，消耗CPU严重。&lt;/li&gt;
 &lt;li&gt;CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2&gt;InnoDB中MVCC的实现&lt;/h2&gt;
+&lt;p&gt;在InnoDB中，每行数据会有两个额外的值来实现MVCC，一个值记录这行数据何时被创建，一个值记录这行数据何时过期（或者被删除）。实际中这个值存储的是事务的版本号，
+每开启一个新事务，事务的版本号就会加1。&lt;/p&gt;
+&lt;p&gt;读取数据时，只会读到小于等于当前事务版本号的数据。通过MVCC，虽然每行记录都需要额外的存储空间，但可以减少锁的使用，大多数读操作都不用加锁。&lt;/p&gt;
+&lt;h3&gt;RR隔离级别下，如何解决幻读？&lt;/h3&gt;
+&lt;p&gt;在RR隔离级别下，只靠MVCC，可以解决幻读吗？&lt;/p&gt;
+&lt;p&gt;如果只是快照读&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;begin;
+
+#假设users表为空，下面查出来的数据为空
+
+select * from users; #没有加锁
+
+#此时另一个事务提交了，且插入了一条id=1的数据
+
+select * from users; #读快照，查出来的数据为空
+
+update users set name='mysql' where id=1;#update是当前读，所以更新成功，并生成一个更新的快照
+
+select * from users; #读快照，查出来id为1的一条记录，因为MVCC可以查到当前事务生成的快照
+
+commit;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;begin;
+
+#假设users表为空，下面查出来的数据为空
+
+select * from users lock in share mode; #加上共享锁
+
+#此时另一个事务B想提交且插入了一条id=1的数据，由于有间隙锁，所以要等待
+
+select * from users; #读快照，查出来的数据为空
+
+update users set name='mysql' where id=1;#update是当前读，由于不存在数据，不进行更新
+
+select * from users; #读快照，查出来的数据为空
+
+commit;
+
+#事务B提交成功并插入数据&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。&lt;/p&gt;
+&lt;p&gt;在RR级别下，事务A在update后加锁，可以避免幻读，加的这个锁，就是间隙锁。行锁和间隙锁的合并，称为Next-Key锁。&lt;/p&gt;
+&lt;p&gt;修改数据后，不仅会在相应的行加行锁，同时也会在数据行两边的区间，加上间隙锁。这样其他事务就无法在两边的区间insert新的数据。&lt;/p&gt;
+&lt;p&gt;行锁防止别的事务修改或删除数据，GAP锁该上别的事务新增数据，行锁和GAP锁结合共同解决了RR级别在写数据时的幻读问题。&lt;/p&gt;
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/mysql/</guid><pubDate>Wed, 16 Jun 2021 15:07:17 +0806</pubDate></item><item><title>HTTP</title><link>/Blog-With-GitHub-Boilerplate/archives/http/</link><description>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;多路复用&lt;/li&gt;
