@@ -6,10 +6,10 @@ date: 2021-06-17 17:15:16
 status: publish
 author: 君祁
 categories:
-- Maverick
-  tags:
-- redis
-  excerpt: redis
+  - Maverick
+tags:
+  - redis
+excerpt: redis
 ---
 
 ## 简单动态字符串(SDS)
