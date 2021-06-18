@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/0f562974bbd1f64f986fd80f69b35845.json"
+            api: "/Blog-With-GitHub-Boilerplate/904551e04acfbb7214f8bf124d2571a5.json"
         }
     </script>
     <script>
@@ -135,10 +135,10 @@
 <p>算法过程：</p>
 <ol>
 <li>根据key的hashcode做散列，计算出数组内对应的下标值。</li>
-<li>如果数组中对应的位置为空，说明没有与其他元素冲突，就直接放在该位置。</li>
-<li>如果数组中对应的位置不为空，且下面是链表格式，链表长度小于8，就放到链表里（JDK1.8放在尾部，JDK1.7放在头部）；如果添加后链表长度大于8，
+<li>如果数组中对应的位置为空，说明没有发生哈希碰撞冲突，就直接放在该位置。</li>
+<li>如果发生了哈希碰撞，且下面是链表结构，链表长度小于8，就放到链表里（JDK1.8放在尾部，JDK1.7放在头部）；如果添加后链表长度大于8，
 就将链表转化为红黑树的结构。</li>
-<li>如果数组中对应的位置不为空，且下面是红黑树格式，就将新元素插入到红黑树中。</li>
+<li>如果发生了哈希碰撞，且下面是红黑树结构，就将新元素插入到红黑树中。</li>
 <li>进行扩容检测，如果需要扩容，将数组进行2倍扩容，并将老数组中的所有元素取出来重新进行hash散列，再放到新数组中。</li>
 </ol>
 <p><figure><img data-width="634" data-height="441" src="/Blog-With-GitHub-Boilerplate/archives/assets/5429d84584ae3be5f41df2a60e2289a0.jpg" alt="" /></figure></p>
