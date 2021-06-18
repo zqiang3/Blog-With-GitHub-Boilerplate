@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/9def50981bccb3b50a77542353456882.json"
+            api: "/Blog-With-GitHub-Boilerplate/0f562974bbd1f64f986fd80f69b35845.json"
         }
     </script>
     <script>
@@ -130,7 +130,8 @@
         </p>
         <article class="yue"><p><a href="https://blog.csdn.net/weixin_44015043/article/details/105346187">原文链接</a></p>
 <h2>HashMap的实现原理</h2>
-<p>JDK1.7中使用的数组+链表，JDK1.8中使用的数组+链表+红黑树，当链表长度大于8时，会将链表转化为红黑树。</p>
+<p>JDK1.7中使用的是数组+链表。</p>
+<p>JDK1.8中使用的是数组+链表+红黑树。当链表长度大于8时，会将链表转化为红黑树；当链表长度小于6时，会将红黑树转化为链表。</p>
 <p>算法过程：</p>
 <ol>
 <li>根据key的hashcode做散列，计算出数组内对应的下标值。</li>
