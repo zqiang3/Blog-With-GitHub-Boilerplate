@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/fbe32eac3e789715d5e6905d95eaf023.json"
+            api: "/Blog-With-GitHub-Boilerplate/094650138fb0ed0e6196dbb27277d5fa.json"
         }
     </script>
     <script>
@@ -135,13 +135,14 @@
 <p><strong>优点</strong></p>
 <ol>
 <li>常数时间获取字符串长度。</li>
-<li>杜绝缓冲区溢出。</li>
-<li>通过内存预分配和惰性空间释放减少内存重分配次数。</li>
-<li>二进制安全。</li>
+<li>杜绝缓冲区溢出。SDS在修改数据之前，会先检查空间是否足够，不够会先拓展空间，再执行操作。</li>
+<li>通过内存预分配和惰性空间释放减少内存重分配次数。c字符串修改字符串长度N次需要执行N次内存重分配，SDS最多执行N次内存重分配。</li>
+<li>二进制安全。c字符采用0字符标识末尾，因此不能保存图片，音视频，压缩文件，SDS采用len记录长度，不存在这种问题，因此可以保存各种各样的格式。</li>
 <li>兼容部分c字符串函数。</li>
 </ol>
 <h2>链表</h2>
-<p><strong>定义</strong></p>
+<p>在 Redis3.2 之前，链表采用了 ZipList 和 LinkedList 实现的，在 3.2 之后，List 底层采用了 QuickList。
+<strong>定义</strong></p>
 <div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">listNode</span> <span class="p">{</span>
   <span class="k">struct</span> <span class="nc">listNode</span> <span class="o">*</span><span class="n">prev</span><span class="p">;</span>
   <span class="k">struct</span> <span class="nc">listNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
@@ -159,11 +160,11 @@
 </pre></div>
 <p><strong>特点</strong></p>
 <ol>
-<li>双端</li>
-<li>无环</li>
+<li>双端：带有prev和next指针</li>
+<li>无环：表头节点的 prev 指针和表尾节点的 next 都指向NULL</li>
 <li>带表头和表尾指针</li>
-<li>长度计数器</li>
-<li>多态。</li>
+<li>保存了链表长度</li>
+<li>多态：链表节点使用void*指针来保存节点值，并且可以通过list结构的dup、free、match三个属性为节点值设置类型特定函数。</li>
 </ol>
 <h2>跳跃表</h2>
 <p>链接：<a href="https://www.jianshu.com/p/9d8296562806">跳跃表的实现（全网最详细的分析）</a></p>
@@ -195,6 +196,224 @@
 <p>跳跃表的查询复杂度可以接近O(logN)。
 跳跃表的查询效率可以与平衡树媲美，但设计与实现却比平衡树简单得多。设计思想是通过空间换时间。通过建立多层链表，高层的链表比低层的跨度大，就可以加快查询速度。</p>
 <p>当有序集合中元素数量很多，或者元素的成员是较长的字符串，就会使用跳跃表作为底层实现。</p>
+<h2>哈希表</h2>
+<p><strong>定义</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// 字典</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">dict</span> <span class="p">{</span>
+  <span class="n">dictType</span> <span class="o">*</span><span class="n">type</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">privdata</span><span class="p">;</span>
+  <span class="n">dictht</span> <span class="n">ht</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">rehashidx</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">dict</span><span class="p">;</span>
+
+<span class="c1">// hashtable</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">dictht</span> <span class="p">{</span>
+  <span class="n">dictEntry</span> <span class="o">**</span><span class="n">table</span><span class="p">;</span>
+  <span class="n">unsignd</span> <span class="kt">long</span> <span class="n">size</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">sizemask</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">used</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">dictht</span><span class="p">;</span>
+
+<span class="c1">// 哈希表节点</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">dictEntry</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">;</span>
+  <span class="k">union</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">val</span><span class="p">;</span>
+    <span class="kt">uint64_t</span> <span class="n">u64</span><span class="p">;</span>
+    <span class="kt">int64_t</span> <span class="n">s64</span><span class="p">;</span>
+  <span class="p">}</span> <span class="n">v</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="nc">dictEntry</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">dictEntry</span><span class="p">;</span>
+</pre></div>
+<p>链地址法来解决冲突，将新节点添加到链表的表头位置。</p>
+<p>渐进式哈希，两个哈希表，每次对字典进行添加，删除，查找或更新操作，会将rehashidx索引上的键值对rehash到<code>ht[1]</code>。当所有键值对都rehash到<code>ht[1]</code>，
+设置rehashidx=-1，rehash操作完成。分而治之，避免集中式处理对redis性能影响太大。rehash期间，查找会在两个哈希表查找，新增的键值会直接添加到<code>ht[1]</code>。</p>
+<h2>整数集合</h2>
+<p><strong>定义</strong></p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">intset</span> <span class="p">{</span>
+  <span class="kt">uint32_t</span> <span class="n">encoding</span><span class="p">;</span>
+  <span class="kt">uint32_t</span> <span class="n">length</span><span class="p">;</span>
+  <span class="kt">int8_t</span> <span class="n">contents</span><span class="p">[];</span>
+<span class="p">}</span> <span class="n">intset</span><span class="p">;</span>
+</pre></div>
+<p>整数集合的每个元素都是contents数组的一个数据项，各个项在数据中按值的大小<strong>从小到大</strong>有序地排列，并且数组中<strong>不包含任何重复项</strong>。</p>
+<p>contents数组的真正类型取决于encoding属性的值。 encoding为INTSET_ENC_INT16，整数集合底层实现为int16_t类型的数组，集合保存的都是int16_t类型的整数值。</p>
+<p><strong>升级</strong></p>
+<p>添加新元素，并且新元素的类型比整数集合现有所有元素都要长时。</p>
+<p>升级要做的是，根据新类型的长度，以及元素的数量，对底层数组进行空间重分配。</p>
+<p><strong>降级</strong></p>
+<p>不支持降级。一旦对数组进行了升级，编码就会一直保持升级后的状态。</p>
+<p>采用整数集合存储提升了灵活性，也尽可能地节约内存</p>
+<h2>压缩列表</h2>
+<p>压缩列表是为了节约内存而开发，由一系列特殊编码的<strong>连续内存块</strong>组成。每个节点可以保存一个字符数组或者一个整数值。</p>
+<p><strong>数据结构</strong></p>
+<div class="highlight"><pre><span></span><span class="n">zlbytes</span> <span class="n">zltail</span> <span class="n">zllen</span> <span class="n">entry1</span> <span class="n">entry2</span> <span class="p">...</span> <span class="n">entryN</span> <span class="n">zlend</span>
+<span class="n">previous_entry_length</span> <span class="n">encoding</span> <span class="n">content</span>
+</pre></div>
+<p>了解下连锁更新。</p>
+<h2>对象</h2>
+<p><strong>定义</strong></p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">redisObject</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="nl">type</span><span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="nl">encoding</span><span class="p">:</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">robj</span><span class="p">;</span>
+</pre></div>
+<p><strong>类型</strong></p>
+<table>
+<thead><tr>
+<th>类型常量</th>
+<th>对象名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REDIS_STRING</td>
+<td>字符串对象</td>
+</tr>
+<tr>
+<td>REDIS_LIST</td>
+<td>列表</td>
+</tr>
+<tr>
+<td>REDIS_HASH</td>
+<td>哈希</td>
+</tr>
+<tr>
+<td>REDIS_SET</td>
+<td>集合</td>
+</tr>
+<tr>
+<td>REDIS_ZSET</td>
+<td>有序集合</td>
+</tr>
+</tbody>
+</table>
+<p>使用TYPE命令查看对象的类型</p>
+<div class="highlight"><pre><span></span>rpush alist <span class="m">1</span> <span class="m">2</span> <span class="m">5</span>
+TYPE alist  <span class="c1"># list</span>
+</pre></div>
+<p><strong>编码和底层实现</strong></p>
+<table>
+<thead><tr>
+<th>类型</th>
+<th>编码</th>
+<th>对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REDIS_STRING</td>
+<td>REDIS_ENCODING_INT</td>
+<td></td>
+</tr>
+<tr>
+<td>REDIS_STRING</td>
+<td>REDIS_ENCODING_EMBSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>REDIS_STRING</td>
+<td>REDIS_ENCODING_RAW</td>
+<td></td>
+</tr>
+<tr>
+<td>REDIS_LIST</td>
+<td>REDIS_ENCODING_ZIPLIST</td>
+<td>压缩列表实现</td>
+</tr>
+<tr>
+<td>REDIS_LIST</td>
+<td>REDIS_ENCODING_LINKEDLIST</td>
+<td>使用双端链表实现的列表对象</td>
+</tr>
+<tr>
+<td>REDIS_HASH</td>
+<td>REDIS_ENCODING_ZIPLIST</td>
+<td>压缩列表实现</td>
+</tr>
+<tr>
+<td>REDIS_HASH</td>
+<td>REDIS_ENCODING_HT</td>
+<td>字典实现</td>
+</tr>
+<tr>
+<td>REDIS_SET</td>
+<td>REDIS_ENCODING_INTSET</td>
+<td>整数集合实现</td>
+</tr>
+<tr>
+<td>REDIS_SET</td>
+<td>REDIS_ENCODING_HT</td>
+<td>字典实现</td>
+</tr>
+<tr>
+<td>REDIS_ZSET</td>
+<td>REDIS_ENCODING_ZIPLIST</td>
+<td>压缩列表实现</td>
+</tr>
+<tr>
+<td>REDIS_ZSET</td>
+<td>REDIS_ENCODING_SKIPLIST</td>
+<td>使用跳跃表和字典实现的有序集合对象</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数据结构与编码常量</strong></p>
+<table>
+<thead><tr>
+<th>底层数据结构</th>
+<th>编码常量</th>
+<th>命令输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整数</td>
+<td>REDIS_ENCODING_INT</td>
+<td>int</td>
+</tr>
+<tr>
+<td>embstr编码的简单动态字符串SDS</td>
+<td>REDIS_ENCODING_EMBSTR</td>
+<td>embstr</td>
+</tr>
+<tr>
+<td>简单动态字符串SDS</td>
+<td>REDIS_ENCODING_RAW</td>
+<td>raw</td>
+</tr>
+<tr>
+<td>字典</td>
+<td>REDIS_ENCODING_HT</td>
+<td>hashtable</td>
+</tr>
+<tr>
+<td>双端链表</td>
+<td>REDIS_ENCODING_LINKEDLIST</td>
+<td>linkedlist</td>
+</tr>
+<tr>
+<td>压缩列表</td>
+<td>REDIS_ENCODING_ZIPLIST</td>
+<td>ziplist</td>
+</tr>
+<tr>
+<td>整数集合</td>
+<td>REDIS_ENCODING_INTSET</td>
+<td>intset</td>
+</tr>
+<tr>
+<td>跳跃表和字典</td>
+<td>REDIS_ENCODING_SKIPLIST</td>
+<td>skiplist</td>
+</tr>
+</tbody>
+</table>
+<p>使用OBJECT ENCODING查看对象的编码</p>
+<div class="highlight"><pre><span></span><span class="nb">set</span> msg <span class="s2">&quot;hello world&quot;</span>
+OBJECT ENCODING msg
+</pre></div>
 </article>
     </section>
 
