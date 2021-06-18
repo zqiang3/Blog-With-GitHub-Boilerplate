@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 03:55:03 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 03:55:03 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Fri, 18 Jun 2021 07:39:47 +0806</lastBuildDate><pubDate>Fri, 18 Jun 2021 07:39:47 +0806</pubDate><item><title>Hello World!</title><link>/Blog-With-GitHub-Boilerplate/archives/typography/</link><description>&lt;div class="notice"&gt;这是一篇示例文章，在这里你可以看到常用页面元素的显示效果，同时也是 Markdown 语法的参考文章。保留或者删除本文，开始自己的创作吧！&lt;/div&gt;&lt;h2&gt;L2 Heading&lt;/h2&gt;
 &lt;h3&gt;L3 Heading&lt;/h3&gt;
 &lt;h4&gt;L4 Heading&lt;/h4&gt;
 &lt;h5&gt;L5 Heading&lt;/h5&gt;
@@ -272,7 +272,32 @@ commit;
 &lt;p&gt;HTTP1.1提供了管线化技术，可以将多个http请求打包在一起发给服务端，但是返回的响应也必须是按请求的顺序返回，如果某个请求耗时很长，就会阻塞后面的请求，有队头阻塞问题。&lt;/p&gt;
 &lt;p&gt;HTTP/2提出了多路复用技术，在一个tcp连接上可以并行多个请求/响应，不同请求/响应之间互不影响。原理是将消息分成多个二进制帧，二进制帧带有更多信息，标识自己属于哪个请求/响应，
 这样多个请求/响应可以并行处理，不会相互阻塞。&lt;/p&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/http/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item><item><title>redis设计与实现</title><link>/Blog-With-GitHub-Boilerplate/archives/redis/</link><description>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/http/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item><item><title>HashMap的实现原理</title><link>/Blog-With-GitHub-Boilerplate/archives/hashmap/</link><description>&lt;p&gt;&lt;a href="https://blog.csdn.net/weixin_44015043/article/details/105346187"&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;HashMap的实现原理&lt;/h2&gt;
+&lt;p&gt;JDK1.7中使用的数组+链表，JDK1.8中使用的数组+链表+红黑树，当链表长度大于8时，会将链表转化为红黑树。&lt;/p&gt;
+&lt;p&gt;算法过程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;根据key的hashcode做散列，计算出数组内对应的下标值。&lt;/li&gt;
+&lt;li&gt;如果数组中对应的位置为空，说明没有与其他元素冲突，就直接放在该位置。&lt;/li&gt;
+&lt;li&gt;如果数组中对应的位置不为空，且下面是链表格式，链表长度小于8，就放到链表里（JDK1.8放在尾部，JDK1.7放在头部）；如果添加后链表长度大于8，
+就将链表转化为红黑树的结构。&lt;/li&gt;
+&lt;li&gt;如果数组中对应的位置不为空，且下面是红黑树格式，就将新元素插入到红黑树中。&lt;/li&gt;
+&lt;li&gt;进行扩容检测，如果需要扩容，将数组进行2倍扩容，并将老数组中的所有元素取出来重新进行hash散列，再放到新数组中。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img data-width="634" data-height="441" src="/Blog-With-GitHub-Boilerplate/archives/assets/5429d84584ae3be5f41df2a60e2289a0.jpg" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2&gt;为什么使用数组而不是链表？&lt;/h2&gt;
+&lt;p&gt;数组的查询时间复杂度是O(1)，通过散列函数计算出数组的下标，可以直接定位到节点的位置。&lt;/p&gt;
+&lt;p&gt;使用底层数组，不使用ArrayList，可以自定义扩容机制，而ArrayList是1.5倍扩容。&lt;/p&gt;
+&lt;h2&gt;如何计算数组的下标值？&lt;/h2&gt;
+&lt;p&gt;根据key取得hashcode后，将它与数组的长度减1进行与运算，得出下标值。
+进行与操作时，计算只用到了最后几位，导致所生成的下标值不能够完全散列。
+解决方式是将hashcode的高16位与低16位进行异或操作，得到的值再进行相与，得到最终散列的下标值。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;hashCode&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tab&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;hash&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;tab&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;newNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/hashmap/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item><item><title>redis设计与实现</title><link>/Blog-With-GitHub-Boilerplate/archives/redis/</link><description>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="nc"&gt;sdshdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
