@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/06b7f49bda6320833f59a018e5b536d1.json"
+            api: "/Blog-With-GitHub-Boilerplate/c5f83978ae5f7f937e91cd8daa9a20b8.json"
         }
     </script>
     <script>
@@ -153,6 +153,8 @@
 <li>对于在静态、动态字典中都不存在的内容，可以使用哈夫曼编码来减小体积。</li>
 </ol>
 <h2>HTTP1.1的pipeline与HTTP/2的多路复用有什么区别？</h2>
+<p>网上有一张图，对HTTP1.1与HTTP/2在网络通信的差异进行了对比。</p>
+<p><figure><img data-width="1602" data-height="1588" src="/Blog-With-GitHub-Boilerplate/archives/assets/08f37543e79bd131bd11b266e61b719b.png" alt="" /></figure></p>
 <p>HTTP1.0使用的是短连接，每次请求响应完成会断开连接，效率非常低。</p>
 <p>HTTP1.1增加了支持持久化连接，也就是长连接，在一个连接上可以进行多次请求/响应。但是多个请求/响应只能串行，后一个请求/响应只能在前一个请求/响应完成后才能发起。</p>
 <p>HTTP1.1提供了管线化技术，可以将多个http请求打包在一起发给服务端，但是返回的响应也必须是按请求的顺序返回，如果某个请求耗时很长，就会阻塞后面的请求，有队头阻塞问题。</p>
