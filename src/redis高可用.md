@@ -1,3 +1,17 @@
+---
+layout: post
+title: redis高可用
+slug: redis_ha
+date: 2021-06-24 01:00:23
+status: publish
+author: 君祁
+categories:
+  - Maverick
+tags:
+  - redis
+  - ha
+excerpt: redis高可用
+---
 
 ## 过期删除策略
 [链接](https://zhuanlan.zhihu.com/p/139423463)
