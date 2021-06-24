@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Thu, 24 Jun 2021 01:34:56 +0806</lastBuildDate><pubDate>Thu, 24 Jun 2021 01:34:56 +0806</pubDate><item><title>TCP</title><link>/Blog-With-GitHub-Boilerplate/archives/tcp/</link><description>&lt;h2&gt;TCP&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Thu, 24 Jun 2021 09:33:47 +0806</lastBuildDate><pubDate>Thu, 24 Jun 2021 09:33:47 +0806</pubDate><item><title>TCP</title><link>/Blog-With-GitHub-Boilerplate/archives/tcp/</link><description>&lt;h2&gt;TCP&lt;/h2&gt;
 &lt;p&gt;在socket编程中，当客户端执行&lt;code&gt;connect()&lt;/code&gt;时，将触发三次握手。建立TCP连接时，客户端和服务端，总共需要发送三个包。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;第一次握手(SYN=1, seq=x)&lt;/p&gt;
@@ -810,13 +810,78 @@ OBJECT ENCODING msg
 &lt;li&gt;定期删除，折中&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;从服务器不会触发键过期，而是会等待主节点触发键过期。主节点键过期时，会同步del命令给所有的从节点。
-从节点不处理过期键，但也不会返回已过期的数据，会通过独有的逻辑来标一个键已经过期。&lt;/p&gt;
-&lt;h2&gt;redis主从复制的过程&lt;/h2&gt;
-&lt;p&gt;主节点开启一个子进程，生成rdb快照文件，同时将新的命令写到缓冲区
-发送rdb快照文件
-从机收到rdb文件后，加载数据到内存
-主机再将缓冲区命令发到从机，从机加载后与主机达到一致状态
-之后主机每收到一新写命令，都会同步给从机。&lt;/p&gt;
-&lt;p&gt;增量同步
-条件：主机会维护一个复制积压缓冲区，如果从节缺失的数据在复制积压缓冲区内，可以执行增量同步，否则执行全量同步。&lt;/p&gt;
+从节点不处理过期键，但也不会返回已过期的数据，会通过独有的逻辑来标记一个键已经过期。&lt;/p&gt;
+&lt;h2&gt;主从模式&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;主从复制的过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;主节点(master)开启一个子进程，生成rdb快照文件，同时将新的命令写到缓冲区&lt;/li&gt;
+&lt;li&gt;向从节点(slave)发送rdb快照文件&lt;/li&gt;
+&lt;li&gt;从节点收到rdb文件后，加载数据到内存&lt;/li&gt;
+&lt;li&gt;主节点再将缓冲区命令发到从节点，加载后与主节点达到一致状态&lt;/li&gt;
+&lt;li&gt;之后主节点每收到一个新的写命令，都会同步给从节点&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;主从复制开始时，副本从主机全量同步数据，发送psync命令，主机执行bgsave，在后台开启一个子进程产生rdb文件，同时将后面新的写命令写到一个缓冲区，然后把rdb文件发送给从机，从机收到后load到内存，这个步骤完成后主机再将缓冲区的数据发给从机，再之后主机收到新的写命令，都会发给从机&lt;/p&gt;
+&lt;p&gt;master如果发现有多个slave node都来重新连接，仅仅会启动一个rdb save操作，用一份数据服务所有slave node。&lt;/p&gt;
+&lt;p&gt;增量同步条件：主机会维护一个复制积压缓冲区，如果从节点缺失的数据在复制积压缓冲区内，可以执行增量同步，否则执行全量同步。&lt;/p&gt;
+&lt;p&gt;复制积压缓冲区是一个固定长度的先进先出队列，默认大小为1M。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;主库执行全量备份会造成毫秒或秒级的卡顿&lt;/li&gt;
+&lt;li&gt;COW机制，极端情况下主库内存溢出，程序异常退出或宕机&lt;/li&gt;
+&lt;li&gt;发送数GB大小的备份文件导致服务器出口带宽暴增，阻塞请求。&lt;/li&gt;
+&lt;li&gt;需要人为手工操作，需要通知业务方做变更配置，整个过程需要人为干预，较为烦琐&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在主-从模式里，如果主服务器宕机了，虽然可以由从机来代替主机继续服务，但这需要人工把从机切换成主机，需要人工干预，还会造成一段时间服务不可用。&lt;/p&gt;
+&lt;h2&gt;sentinel&lt;/h2&gt;
+&lt;p&gt;Sentinel是Redis的高可用性解决方案。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;故障转移的过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;每个sentinel根据心跳响应超时判断主节点是否主观下线，根据配置判定是否客观下线。sentinel判定下线的标准是写在配置里的，包括多久超时，其他sentinel认为下线的数量。&lt;/li&gt;
+&lt;li&gt;选举领头sentinel，在每个纪元周期，每个sentinel都可以发送广播让其他sentinel设置自己为领头sentinel；每个sentinel有一次机会设置另一个sentinel为leader；
+当某个sentinel获得了半数以上的选票，就成为leader，并发送广播告诉其他sentinel，选举阶段结束。&lt;/li&gt;
+&lt;li&gt;领头sentinel选择一台从服务器，将其升级为主服务器。选取的标准有几个。&lt;/li&gt;
+&lt;li&gt;向其他从服务器发送命令，让它们复制新的主服务器&lt;/li&gt;
+&lt;li&gt;当旧的主服务器重新连线后，将成为新的主服务器的从服务器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;选取从服务器升级为主服务器的标准：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;删除所有下线或断线的从服务器&lt;/li&gt;
+&lt;li&gt;删除最近5秒没有回复info命令的从服务器&lt;/li&gt;
+&lt;li&gt;删除与主服务器断开超过一定时间的从服务器，保证数据是相对较新的&lt;/li&gt;
+&lt;li&gt;选择优先级最高的&lt;/li&gt;
+&lt;li&gt;选择复制偏移量最大的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;sentinel的启动过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个sentinel都与主服务器建立命令连接和订阅连接。命令连接可以发送info命令，发送publish命令，订阅连接可以接收hello频道的信息&lt;/li&gt;
+&lt;li&gt;与主服务器建立连接后，可以向主服务器发送info命令，可以得到从服务器的信息。sentinel就可以无需用户提供从服务器的信息，可以通过主服务器发现从服务器&lt;/li&gt;
+&lt;li&gt;发现从服务器后，创建与从服务器的命令连接和订阅连接，也可以向从服务器发送info命令了&lt;/li&gt;
+&lt;li&gt;sentinel通过hello频道的信息可以自动发现其他sentinel，相互之间建立命令连接，不建议订阅连接&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Redis Cluster&lt;/h2&gt;
+&lt;p&gt;Redis Cluster是Redis提供的&lt;strong&gt;分布式集群&lt;/strong&gt;解决方案，集群通过分片来进行数据共享，并提供复制和故障转移功能。&lt;/p&gt;
+&lt;p&gt;通过Gossip协议进行通信。&lt;/p&gt;
+&lt;p&gt;最小配置6个节点以上（3主3从），主节点提供读写操作，从节点作为备用节点，不提供服务，只作为故障转移使用。节点只使用0号数据库&lt;/p&gt;
+&lt;p&gt;关键词：节点、槽指派、命令执行、重新分片、转向、故障转移、消息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;故障转移&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;集群中的每个节点都会定期地向其他节点发送ping消息，以此来检测对方是否在线。如果接收ping消息的节点没有在规定的时间之内回复pong，就会被标记为&lt;strong&gt;疑似下线&lt;/strong&gt;。节点的状态包括：在线，疑似下线，已下线。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果集群里半数以上的负责处理槽的主节点将某个主节点报告为疑似下线，则该节点将被标记为&lt;strong&gt;已下线&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;第一个标记节点为已下线的主节点将向集群广播一条消息，所有收到消息的节点也会立即标记该节点已下线。&lt;/li&gt;
+&lt;li&gt;从已下线的主节点下选中一个从节点，使其成为新的主节点。&lt;/li&gt;
+&lt;li&gt;新的主节点接管所有旧的主节点的槽，指派给自己。&lt;/li&gt;
+&lt;li&gt;向集群广播一条消息，告诉其他节点自己已成为新的主节点，并接管了所有的槽。&lt;/li&gt;
+&lt;li&gt;新的主节点开始接收命令和处理自己负责的槽，故障转移完成。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;选举新的主节点的过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;所有的主节点有投票权，从节点没有投票权&lt;/li&gt;
+&lt;li&gt;在某个主节点已下线后，其下的从节点会向集群广播一条消息，要求收到消息的主节点向自己投票。&lt;/li&gt;
+&lt;li&gt;每个在线的主节点都有一次投票机会，会选择最先向自己要求投票的从节点。&lt;/li&gt;
+&lt;li&gt;当某个从节点获得了半数以上的投票，则选举成功；否则，任何一个从节点都没有获得足够多的选票，会在新的纪元周期发起选举。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;读写分离的讨论&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;官方默认cluster不进行读写分离。在cluster架构下，默认的，一般redis-master用于接收读写，而redis-slave则用于备份，当有请求是向slave发起时，会直接重定向到对应key的master来处理。&lt;/p&gt;
+&lt;p&gt;可通过readonly命令，将slave设置成可读，然后通过slave获取相关的key，达到读写分离。&lt;/p&gt;
+&lt;p&gt;不过，通过对master进行水平扩展就可以了，扩容master，跟之前扩容slave并进行读写分离，效果是一样的或者更好。&lt;/p&gt;
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/redis_ha/</guid><pubDate>Thu, 24 Jun 2021 01:00:23 +0806</pubDate></item></channel></rss>

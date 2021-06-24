@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>/Blog-With-GitHub-Boilerplate/</id><title>君祁的技术博客</title><updated>2021-06-24T01:34:56.905567+08:06</updated><author><name>君祁</name><email>zqiang33@163.com</email></author><link href="/Blog-With-GitHub-Boilerplate/" rel="alternate"/><generator uri="https://lkiesow.github.io/python-feedgen" version="0.9.0">python-feedgen</generator><logo>/Blog-With-GitHub-Boilerplate/logo.png</logo><subtitle>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</subtitle><entry><id>/Blog-With-GitHub-Boilerplate/archives/tcp/</id><title>TCP</title><updated>2021-06-24T01:34:56.906030+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;TCP&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>/Blog-With-GitHub-Boilerplate/</id><title>君祁的技术博客</title><updated>2021-06-24T09:33:47.200638+08:06</updated><author><name>君祁</name><email>zqiang33@163.com</email></author><link href="/Blog-With-GitHub-Boilerplate/" rel="alternate"/><generator uri="https://lkiesow.github.io/python-feedgen" version="0.9.0">python-feedgen</generator><logo>/Blog-With-GitHub-Boilerplate/logo.png</logo><subtitle>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</subtitle><entry><id>/Blog-With-GitHub-Boilerplate/archives/tcp/</id><title>TCP</title><updated>2021-06-24T09:33:47.201043+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;TCP&lt;/h2&gt;
 &lt;p&gt;在socket编程中，当客户端执行&lt;code&gt;connect()&lt;/code&gt;时，将触发三次握手。建立TCP连接时，客户端和服务端，总共需要发送三个包。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;第一次握手(SYN=1, seq=x)&lt;/p&gt;
@@ -115,7 +115,7 @@
 &lt;li&gt;TCP适用可靠传输的场景，对网络通讯要求高。&lt;/li&gt;
 &lt;li&gt;UDP适用于对网络通讯质量要求不高的场景，如音视频传输。&lt;/li&gt;
 &lt;/ul&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/tcp/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql/</id><title>MySQL</title><updated>2021-06-24T01:34:56.906001+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;聚簇索引与非聚簇索引&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/tcp/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql/</id><title>MySQL</title><updated>2021-06-24T09:33:47.201011+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;聚簇索引与非聚簇索引&lt;/h2&gt;
 &lt;p&gt;聚簇索引(clustered index)：聚簇索引的叶节点存储了整行数据。&lt;/p&gt;
 &lt;p&gt;非聚簇索引：索引树的叶子节点只存储索引字段和主键的值，不存放整行数据。非聚簇索引也称为二级索引。&lt;/p&gt;
 &lt;p&gt;聚簇索引与非聚簇索引的区别是：是否存放完整的整行记录。&lt;/p&gt;
@@ -333,7 +333,7 @@ commit;
 &lt;p&gt;在RR级别下，事务A在update后加锁，可以避免幻读，加的这个锁，就是间隙锁。行锁和间隙锁的合并，称为Next-Key锁。&lt;/p&gt;
 &lt;p&gt;修改数据后，不仅会在相应的行加行锁，同时也会在数据行两边的区间，加上间隙锁。这样其他事务就无法在两边的区间insert新的数据。&lt;/p&gt;
 &lt;p&gt;行锁防止别的事务修改或删除数据，GAP锁该上别的事务新增数据，行锁和GAP锁结合共同解决了RR级别在写数据时的幻读问题。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/http/</id><title>HTTP</title><updated>2021-06-24T01:34:56.905958+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/http/</id><title>HTTP</title><updated>2021-06-24T09:33:47.200980+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;多路复用&lt;/li&gt;
 &lt;li&gt;头部压缩&lt;/li&gt;
@@ -365,7 +365,7 @@ commit;
 &lt;p&gt;HTTP1.1提供了管线化技术，可以将多个http请求打包在一起发给服务端，但是返回的响应也必须是按请求的顺序返回，如果某个请求耗时很长，就会阻塞后面的请求，有队头阻塞问题。&lt;/p&gt;
 &lt;p&gt;HTTP/2提出了多路复用技术，在一个tcp连接上可以并行多个请求/响应，不同请求/响应之间互不影响。原理是将消息分成多个二进制帧，二进制帧带有更多信息，标识自己属于哪个请求/响应，
 这样多个请求/响应可以并行处理，不会相互阻塞。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/http/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/hashmap/</id><title>HashMap的实现原理</title><updated>2021-06-24T01:34:56.905916+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;&lt;a href="https://blog.csdn.net/weixin_44015043/article/details/105346187"&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/http/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/hashmap/</id><title>HashMap的实现原理</title><updated>2021-06-24T09:33:47.200949+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;&lt;a href="https://blog.csdn.net/weixin_44015043/article/details/105346187"&gt;原文链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;HashMap的实现原理&lt;/h2&gt;
 &lt;p&gt;JDK1.7中使用的是数组+链表。&lt;/p&gt;
 &lt;p&gt;JDK1.8中使用的是数组+链表+红黑树。当链表长度大于8时，会将链表转化为红黑树；当链表长度小于6时，会将红黑树转化为链表。&lt;/p&gt;
@@ -391,7 +391,7 @@ commit;
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tab&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;hash&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;tab&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;newNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/hashmap/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis/</id><title>redis设计与实现</title><updated>2021-06-24T01:34:56.905885+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/hashmap/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis/</id><title>redis设计与实现</title><updated>2021-06-24T09:33:47.200917+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="nc"&gt;sdshdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -681,23 +681,23 @@ TYPE alist  &lt;span class="c1"&gt;# list&lt;/span&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;set&lt;/span&gt; msg &lt;span class="s2"&gt;&amp;quot;hello world&amp;quot;&lt;/span&gt;
 OBJECT ENCODING msg
 &lt;/pre&gt;&lt;/div&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/redis/" rel="alternate"/><published>2021-06-17T17:15:16+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/java_function_program/</id><title>聊聊Java8的函数式编程</title><updated>2021-06-24T01:34:56.905853+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;函数式编程是Java8的一大特色。&lt;/p&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/redis/" rel="alternate"/><published>2021-06-17T17:15:16+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/java_function_program/</id><title>聊聊Java8的函数式编程</title><updated>2021-06-24T09:33:47.200885+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;函数式编程是Java8的一大特色。&lt;/p&gt;
 &lt;h2&gt;Stream&lt;/h2&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/" rel="alternate"/><published>2021-06-18T10:30:05+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_index/</id><title>谈谈数据库的索引</title><updated>2021-06-24T01:34:56.905821+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;索引有哪几种实现的方式？&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/" rel="alternate"/><published>2021-06-18T10:30:05+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_index/</id><title>谈谈数据库的索引</title><updated>2021-06-24T09:33:47.200853+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;索引有哪几种实现的方式？&lt;/h2&gt;
 &lt;p&gt;索引的实现方式有很多种，常见的三种数据结构是哈希表、有序数组和搜索树。&lt;/p&gt;
 &lt;p&gt;哈希表的查询复杂度可以接近O(1)，适合做等值查询，但做范围查询要做全表扫描，效率非常低。&lt;/p&gt;
 &lt;p&gt;有序数组做等值查询和范围查询效率都很高，但更新数据的成本很高。&lt;/p&gt;
 &lt;p&gt;平衡二叉搜索树的查询和更新时间复杂度都是O(logN)。但二叉树的高度可能很高，查询时需要访问多个数据块，就会有多次读取磁盘的操作。为了让一个查询尽量少地读磁盘， 
 应该使用N叉树（多路查找树），使索引树的高度尽量少。一般树根的数据块会加载到内存，一个高度为4的N叉树只需要3次访问磁盘。N叉树由于在读写上的性能优点，
 以及适配磁盘的访问模式，被广泛应用在数据库引擎中。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/" rel="alternate"/><published>2021-06-18T10:45:11+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_ha/</id><title>MySQL高可用</title><updated>2021-06-24T01:34:56.905789+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;主从复制的过程&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/" rel="alternate"/><published>2021-06-18T10:45:11+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_ha/</id><title>MySQL高可用</title><updated>2021-06-24T09:33:47.200820+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;主从复制的过程&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;master开启binlog功能。&lt;/li&gt;
 &lt;li&gt;master开启io线程，slave开启io线程，sql线程。&lt;/li&gt;
 &lt;li&gt;master通过io线程将binlog日志发送到slave，slave通过io线程接收binlog数据，将其写入relay-log（中继日志）。&lt;/li&gt;
 &lt;li&gt;slave的sql线程实时监测relay-log的内容是否有更新，如果有更新，将里面的sql语句重新执行生成相应的数据。&lt;/li&gt;
 &lt;/ol&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/" rel="alternate"/><published>2021-06-18T16:00:26+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/binary_tree/</id><title>二叉树的前中后序遍历</title><updated>2021-06-24T01:34:56.905751+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;递归法&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/" rel="alternate"/><published>2021-06-18T16:00:26+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/binary_tree/</id><title>二叉树的前中后序遍历</title><updated>2021-06-24T09:33:47.200782+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;递归法&lt;/h2&gt;
 &lt;p&gt;递归算法的三个要素&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;确定递归函数的参数和返回值&lt;/li&gt;
@@ -802,7 +802,7 @@ OBJECT ENCODING msg
 
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/" rel="alternate"/><published>2021-06-24T00:16:53+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</id><title>redis高可用</title><updated>2021-06-24T01:34:56.905649+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;过期删除策略&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/" rel="alternate"/><published>2021-06-24T00:16:53+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</id><title>redis高可用</title><updated>2021-06-24T09:33:47.200713+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;过期删除策略&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://zhuanlan.zhihu.com/p/139423463"&gt;链接&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;定时删除，对内存友好，对cpu不友好&lt;/li&gt;
@@ -810,13 +810,78 @@ OBJECT ENCODING msg
 &lt;li&gt;定期删除，折中&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;从服务器不会触发键过期，而是会等待主节点触发键过期。主节点键过期时，会同步del命令给所有的从节点。
-从节点不处理过期键，但也不会返回已过期的数据，会通过独有的逻辑来标一个键已经过期。&lt;/p&gt;
-&lt;h2&gt;redis主从复制的过程&lt;/h2&gt;
-&lt;p&gt;主节点开启一个子进程，生成rdb快照文件，同时将新的命令写到缓冲区
-发送rdb快照文件
-从机收到rdb文件后，加载数据到内存
-主机再将缓冲区命令发到从机，从机加载后与主机达到一致状态
-之后主机每收到一新写命令，都会同步给从机。&lt;/p&gt;
-&lt;p&gt;增量同步
-条件：主机会维护一个复制积压缓冲区，如果从节缺失的数据在复制积压缓冲区内，可以执行增量同步，否则执行全量同步。&lt;/p&gt;
+从节点不处理过期键，但也不会返回已过期的数据，会通过独有的逻辑来标记一个键已经过期。&lt;/p&gt;
+&lt;h2&gt;主从模式&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;主从复制的过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;主节点(master)开启一个子进程，生成rdb快照文件，同时将新的命令写到缓冲区&lt;/li&gt;
+&lt;li&gt;向从节点(slave)发送rdb快照文件&lt;/li&gt;
+&lt;li&gt;从节点收到rdb文件后，加载数据到内存&lt;/li&gt;
+&lt;li&gt;主节点再将缓冲区命令发到从节点，加载后与主节点达到一致状态&lt;/li&gt;
+&lt;li&gt;之后主节点每收到一个新的写命令，都会同步给从节点&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;主从复制开始时，副本从主机全量同步数据，发送psync命令，主机执行bgsave，在后台开启一个子进程产生rdb文件，同时将后面新的写命令写到一个缓冲区，然后把rdb文件发送给从机，从机收到后load到内存，这个步骤完成后主机再将缓冲区的数据发给从机，再之后主机收到新的写命令，都会发给从机&lt;/p&gt;
+&lt;p&gt;master如果发现有多个slave node都来重新连接，仅仅会启动一个rdb save操作，用一份数据服务所有slave node。&lt;/p&gt;
+&lt;p&gt;增量同步条件：主机会维护一个复制积压缓冲区，如果从节点缺失的数据在复制积压缓冲区内，可以执行增量同步，否则执行全量同步。&lt;/p&gt;
+&lt;p&gt;复制积压缓冲区是一个固定长度的先进先出队列，默认大小为1M。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;主库执行全量备份会造成毫秒或秒级的卡顿&lt;/li&gt;
+&lt;li&gt;COW机制，极端情况下主库内存溢出，程序异常退出或宕机&lt;/li&gt;
+&lt;li&gt;发送数GB大小的备份文件导致服务器出口带宽暴增，阻塞请求。&lt;/li&gt;
+&lt;li&gt;需要人为手工操作，需要通知业务方做变更配置，整个过程需要人为干预，较为烦琐&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在主-从模式里，如果主服务器宕机了，虽然可以由从机来代替主机继续服务，但这需要人工把从机切换成主机，需要人工干预，还会造成一段时间服务不可用。&lt;/p&gt;
+&lt;h2&gt;sentinel&lt;/h2&gt;
+&lt;p&gt;Sentinel是Redis的高可用性解决方案。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;故障转移的过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;每个sentinel根据心跳响应超时判断主节点是否主观下线，根据配置判定是否客观下线。sentinel判定下线的标准是写在配置里的，包括多久超时，其他sentinel认为下线的数量。&lt;/li&gt;
+&lt;li&gt;选举领头sentinel，在每个纪元周期，每个sentinel都可以发送广播让其他sentinel设置自己为领头sentinel；每个sentinel有一次机会设置另一个sentinel为leader；
+当某个sentinel获得了半数以上的选票，就成为leader，并发送广播告诉其他sentinel，选举阶段结束。&lt;/li&gt;
+&lt;li&gt;领头sentinel选择一台从服务器，将其升级为主服务器。选取的标准有几个。&lt;/li&gt;
+&lt;li&gt;向其他从服务器发送命令，让它们复制新的主服务器&lt;/li&gt;
+&lt;li&gt;当旧的主服务器重新连线后，将成为新的主服务器的从服务器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;选取从服务器升级为主服务器的标准：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;删除所有下线或断线的从服务器&lt;/li&gt;
+&lt;li&gt;删除最近5秒没有回复info命令的从服务器&lt;/li&gt;
+&lt;li&gt;删除与主服务器断开超过一定时间的从服务器，保证数据是相对较新的&lt;/li&gt;
+&lt;li&gt;选择优先级最高的&lt;/li&gt;
+&lt;li&gt;选择复制偏移量最大的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;sentinel的启动过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个sentinel都与主服务器建立命令连接和订阅连接。命令连接可以发送info命令，发送publish命令，订阅连接可以接收hello频道的信息&lt;/li&gt;
+&lt;li&gt;与主服务器建立连接后，可以向主服务器发送info命令，可以得到从服务器的信息。sentinel就可以无需用户提供从服务器的信息，可以通过主服务器发现从服务器&lt;/li&gt;
+&lt;li&gt;发现从服务器后，创建与从服务器的命令连接和订阅连接，也可以向从服务器发送info命令了&lt;/li&gt;
+&lt;li&gt;sentinel通过hello频道的信息可以自动发现其他sentinel，相互之间建立命令连接，不建议订阅连接&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Redis Cluster&lt;/h2&gt;
+&lt;p&gt;Redis Cluster是Redis提供的&lt;strong&gt;分布式集群&lt;/strong&gt;解决方案，集群通过分片来进行数据共享，并提供复制和故障转移功能。&lt;/p&gt;
+&lt;p&gt;通过Gossip协议进行通信。&lt;/p&gt;
+&lt;p&gt;最小配置6个节点以上（3主3从），主节点提供读写操作，从节点作为备用节点，不提供服务，只作为故障转移使用。节点只使用0号数据库&lt;/p&gt;
+&lt;p&gt;关键词：节点、槽指派、命令执行、重新分片、转向、故障转移、消息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;故障转移&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;集群中的每个节点都会定期地向其他节点发送ping消息，以此来检测对方是否在线。如果接收ping消息的节点没有在规定的时间之内回复pong，就会被标记为&lt;strong&gt;疑似下线&lt;/strong&gt;。节点的状态包括：在线，疑似下线，已下线。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果集群里半数以上的负责处理槽的主节点将某个主节点报告为疑似下线，则该节点将被标记为&lt;strong&gt;已下线&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;第一个标记节点为已下线的主节点将向集群广播一条消息，所有收到消息的节点也会立即标记该节点已下线。&lt;/li&gt;
+&lt;li&gt;从已下线的主节点下选中一个从节点，使其成为新的主节点。&lt;/li&gt;
+&lt;li&gt;新的主节点接管所有旧的主节点的槽，指派给自己。&lt;/li&gt;
+&lt;li&gt;向集群广播一条消息，告诉其他节点自己已成为新的主节点，并接管了所有的槽。&lt;/li&gt;
+&lt;li&gt;新的主节点开始接收命令和处理自己负责的槽，故障转移完成。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;选举新的主节点的过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;所有的主节点有投票权，从节点没有投票权&lt;/li&gt;
+&lt;li&gt;在某个主节点已下线后，其下的从节点会向集群广播一条消息，要求收到消息的主节点向自己投票。&lt;/li&gt;
+&lt;li&gt;每个在线的主节点都有一次投票机会，会选择最先向自己要求投票的从节点。&lt;/li&gt;
+&lt;li&gt;当某个从节点获得了半数以上的投票，则选举成功；否则，任何一个从节点都没有获得足够多的选票，会在新的纪元周期发起选举。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;读写分离的讨论&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;官方默认cluster不进行读写分离。在cluster架构下，默认的，一般redis-master用于接收读写，而redis-slave则用于备份，当有请求是向slave发起时，会直接重定向到对应key的master来处理。&lt;/p&gt;
+&lt;p&gt;可通过readonly命令，将slave设置成可读，然后通过slave获取相关的key，达到读写分离。&lt;/p&gt;
+&lt;p&gt;不过，通过对master进行水平扩展就可以了，扩容master，跟之前扩容slave并进行读写分离，效果是一样的或者更好。&lt;/p&gt;
 </content><link href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/" rel="alternate"/><published>2021-06-24T01:00:23+08:06</published></entry></feed>
