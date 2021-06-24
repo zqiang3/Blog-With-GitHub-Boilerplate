@@ -12,6 +12,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</loc>
+    <lastmod>2021-06-24</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/binary_tree/</loc>
+    <lastmod>2021-06-24</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
     <loc>/Blog-With-GitHub-Boilerplate/archives/mysql_ha/</loc>
     <lastmod>2021-06-18</lastmod>
     <changefreq>always</changefreq>
@@ -62,6 +76,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
     <loc>/Blog-With-GitHub-Boilerplate/archives/tcp/</loc>
+    <lastmod>2021-06-16</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/system_design/</loc>
+    <lastmod>2021-06-16</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/message_queue/</loc>
     <lastmod>2021-06-16</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>

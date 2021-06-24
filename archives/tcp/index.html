@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/094650138fb0ed0e6196dbb27277d5fa.json"
+            api: "/Blog-With-GitHub-Boilerplate/127d7fe99339e41b49c24e0131fe7e76.json"
         }
     </script>
     <script>
@@ -96,7 +96,7 @@
                     
                     <section>
                         
-    <div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/">MySQL高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">谈谈数据库的索引</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Java/">Java</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">聊聊Java8的函数式编程</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/hashmap/">HashMap的实现原理</a></li></ul></div><div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis/">redis设计与实现</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/tcp/">TCP</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div>
+    <div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/">redis高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis/">redis设计与实现</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/system_design/">系统设计</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/message_queue/">消息队列</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/algorithm/">algorithm</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/">二叉树的前中后序遍历</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/">MySQL高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">谈谈数据库的索引</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Java/">Java</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">聊聊Java8的函数式编程</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/hashmap/">HashMap的实现原理</a></li></ul></div><div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/网络/">网络</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/tcp/">TCP</a></li></ul></div>
 
                     </section>
                     <section hidden class="sidebar-external-link">
@@ -172,6 +172,78 @@
 第一个MSL是为了保证客户端发送的ACK生命周期结束，第二个MSL是确保服务端发送的FIN生命周期结束。</p>
 <p>客户端发送ACK，经过多长时间到达服务是不知道的，假设这个时间为t，则0&lt;t&lt;MSL。如果服务端没有收到ACK，会重传FIN，FIN也需要经过最大MSL的时间到达客户端，
 因此TIME_WAIT需要维持2MSL才能收到重传的FIN报文。</p>
+<h2>什么是MTU</h2>
+<p>最大传输单元，1500bytes</p>
+<h2>TCP与UDP的区别</h2>
+<table>
+<thead><tr>
+<th></th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否建立连接</td>
+<td>面向连接，三次握手</td>
+<td>无连接，不需要握手</td>
+</tr>
+<tr>
+<td></td>
+<td>面向字节流</td>
+<td>面向数据报</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>可靠：无差错，不丢失，不重复，按序到达，有确认、重传机制</td>
+<td>不可靠，最大努力交付，不保证可靠性</td>
+</tr>
+<tr>
+<td></td>
+<td>端到端</td>
+<td>一对一，一对多，多对多</td>
+</tr>
+<tr>
+<td></td>
+<td>有拥塞控制，流量控制</td>
+<td>无握手、确认、重传、拥塞控制机制</td>
+</tr>
+<tr>
+<td>协议头</td>
+<td>首部开销大，20字节</td>
+<td>开销小</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>慢，效率低，占用系统资源高</td>
+<td>UDP更快</td>
+</tr>
+<tr>
+<td>设计复杂度</td>
+<td>复杂</td>
+<td>简单</td>
+</tr>
+<tr>
+<td></td>
+<td>全双工</td>
+<td>全双工</td>
+</tr>
+</tbody>
+</table>
+<p>TCP的缺点：</p>
+<ul>
+<li>慢，效率低，占用系统资源高</li>
+<li>三次握手机制，易被攻击（DOS, DDOS, CC）</li>
+</ul>
+<p>UDP的缺点：</p>
+<ul>
+<li>不可靠，不稳定，丢包</li>
+</ul>
+<p>适用场景：</p>
+<ul>
+<li>TCP适用可靠传输的场景，对网络通讯要求高。</li>
+<li>UDP适用于对网络通讯质量要求不高的场景，如音视频传输。</li>
+</ul>
 </article>
     </section>
 
@@ -187,9 +259,9 @@
         
         
             <div class="prev">
-                <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/typography/">
-                    <time>December 18 2019</time>
-                    <span>Hello World!</span>
+                <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/system_design/">
+                    <time>June 16 2021</time>
+                    <span>系统设计</span>
                 </a>
             </div>
         
