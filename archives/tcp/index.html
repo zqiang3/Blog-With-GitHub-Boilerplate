@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/cfcde9d129e481adb440d1efafc447f2.json"
+            api: "/Blog-With-GitHub-Boilerplate/552d14c6d794219fcd92aba31687ceaf.json"
         }
     </script>
     <script>
@@ -96,7 +96,7 @@
                     
                     <section>
                         
-    <div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/">redis高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis/">redis设计与实现</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/system_design/">系统设计</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/message_queue/">消息队列</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/algorithm/">algorithm</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/">二叉树的前中后序遍历</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/">MySQL高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">谈谈数据库的索引</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Java/">Java</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">聊聊Java8的函数式编程</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/hashmap/">HashMap的实现原理</a></li></ul></div><div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/网络/">网络</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/tcp/">TCP</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_lock/">MySQL锁</a></li></ul></div>
+    <div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/">redis高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis/">redis设计与实现</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/system_design/">系统设计</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/message_queue/">消息队列</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/algorithm/">algorithm</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/">二叉树的前中后序遍历</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/hashmap/">二分查找</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/">MySQL高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">谈谈数据库的索引</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Java/">Java</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">聊聊Java8的函数式编程</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/hashmap/">HashMap的实现原理</a></li></ul></div><div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/网络/">网络</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/tcp/">TCP</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_lock/">MySQL锁</a></li></ul></div>
 
                     </section>
                     <section hidden class="sidebar-external-link">
@@ -243,6 +243,12 @@
 <ul>
 <li>TCP适用可靠传输的场景，对网络通讯要求高。</li>
 <li>UDP适用于对网络通讯质量要求不高的场景，如音视频传输。</li>
+</ul>
+<h2>TCP内核参数优化</h2>
+<ul>
+<li>net.ipv4.tcp_syn_retries：tcp三次握手中发送syn得不到服务端响应时重传syn的次数。</li>
+<li>net.ipv4.tcp_syncookies: 默认开启，建议开启，可以提升对SYN flood攻击的防护能力。</li>
+<li>net.ipv4.tcp_synack_retries: tcp三次握手第二步服务端发送syn+ack得不到响应时重传的次数。</li>
 </ul>
 </article>
     </section>
