@@ -1,3 +1,18 @@
+---
+layout: post
+title: MySQL锁
+slug: mysql_lock
+date: 2021-06-16 15:07:17
+status: publish
+author: 君祁
+categories:
+  - MySQL
+tags:
+  - lock
+excerpt: MySQL, lock
+---
+
+
 ## 幻读
 幻读专指出现了新插入的行。
 
