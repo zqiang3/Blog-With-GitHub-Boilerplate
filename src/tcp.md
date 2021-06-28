@@ -86,3 +86,8 @@ UDP的缺点：
 适用场景：
 * TCP适用可靠传输的场景，对网络通讯要求高。
 * UDP适用于对网络通讯质量要求不高的场景，如音视频传输。
+
+## TCP内核参数优化
+* net.ipv4.tcp_syn_retries：tcp三次握手中发送syn得不到服务端响应时重传syn的次数。
+* net.ipv4.tcp_syncookies: 默认开启，建议开启，可以提升对SYN flood攻击的防护能力。
+* net.ipv4.tcp_synack_retries: tcp三次握手第二步服务端发送syn+ack得不到响应时重传的次数。
