@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>/Blog-With-GitHub-Boilerplate/</id><title>君祁的技术博客</title><updated>2021-06-24T09:33:47.200638+08:06</updated><author><name>君祁</name><email>zqiang33@163.com</email></author><link href="/Blog-With-GitHub-Boilerplate/" rel="alternate"/><generator uri="https://lkiesow.github.io/python-feedgen" version="0.9.0">python-feedgen</generator><logo>/Blog-With-GitHub-Boilerplate/logo.png</logo><subtitle>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</subtitle><entry><id>/Blog-With-GitHub-Boilerplate/archives/tcp/</id><title>TCP</title><updated>2021-06-24T09:33:47.201043+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;TCP&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>/Blog-With-GitHub-Boilerplate/</id><title>君祁的技术博客</title><updated>2021-06-28T02:15:18.160180+08:06</updated><author><name>君祁</name><email>zqiang33@163.com</email></author><link href="/Blog-With-GitHub-Boilerplate/" rel="alternate"/><generator uri="https://lkiesow.github.io/python-feedgen" version="0.9.0">python-feedgen</generator><logo>/Blog-With-GitHub-Boilerplate/logo.png</logo><subtitle>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</subtitle><entry><id>/Blog-With-GitHub-Boilerplate/archives/tcp/</id><title>TCP</title><updated>2021-06-28T02:15:18.160495+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;TCP&lt;/h2&gt;
 &lt;p&gt;在socket编程中，当客户端执行&lt;code&gt;connect()&lt;/code&gt;时，将触发三次握手。建立TCP连接时，客户端和服务端，总共需要发送三个包。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;第一次握手(SYN=1, seq=x)&lt;/p&gt;
@@ -115,7 +115,7 @@
 &lt;li&gt;TCP适用可靠传输的场景，对网络通讯要求高。&lt;/li&gt;
 &lt;li&gt;UDP适用于对网络通讯质量要求不高的场景，如音视频传输。&lt;/li&gt;
 &lt;/ul&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/tcp/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql/</id><title>MySQL</title><updated>2021-06-24T09:33:47.201011+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;聚簇索引与非聚簇索引&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/tcp/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql/</id><title>MySQL</title><updated>2021-06-28T02:15:18.160470+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;聚簇索引与非聚簇索引&lt;/h2&gt;
 &lt;p&gt;聚簇索引(clustered index)：聚簇索引的叶节点存储了整行数据。&lt;/p&gt;
 &lt;p&gt;非聚簇索引：索引树的叶子节点只存储索引字段和主键的值，不存放整行数据。非聚簇索引也称为二级索引。&lt;/p&gt;
 &lt;p&gt;聚簇索引与非聚簇索引的区别是：是否存放完整的整行记录。&lt;/p&gt;
@@ -241,53 +241,11 @@ consistent read是InnoDB在RC和RR隔离级别下进行SELECT查询的默认模�
 &lt;/table&gt;
 &lt;p&gt;在RR隔离级别下，InnoDB通过快照读，解决了不可重复读的问题，通过间隙锁，解决了幻读的问题。
 通过MVCC，InnoDB可以在RC隔离级别解决不可重复读的问题，可以在RR隔离级别解决幻读的问题。&lt;/p&gt;
-&lt;h2&gt;InnoDB加锁处理分析&lt;/h2&gt;
-&lt;p&gt;&lt;a href="https://tech.meituan.com/2014/08/20/innodb-lock.html"&gt;链接&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;MVCC(Multi-Version Concurrency Control)：多版本并发控制
-Lock-Based Concurrency Control：基于锁的并发控制&lt;/p&gt;
-&lt;p&gt;两段锁：加锁阶段和解锁阶段&lt;/p&gt;
-&lt;p&gt;MVCC的好处：读不加锁，读写不冲突，极大地提高系统的并发能力。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;索引对加锁的影响&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;考虑下面的表和更新语句&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;create table t(
-c int
-);
-
-insert into t values(1);
-insert into t values(5);
-insert into t values(10);
-
-update t set c = 100 where c = 1;
-
-alter table t add index id_c (c);&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;c字段加索引与不加索引有区别吗？事实上，如果不给c字段加索引，上面的更新语句会把整张表的所有数据行加行锁。这听起来有点不可思议，但是sql运行过程中，
-由于没有索引，存储引擎无法通过索引快速过滤，就会将所有记录加锁后，全部返回给server层进行过滤。&lt;/p&gt;
-&lt;p&gt;但在实际使用过程当中，MySQL做了一些改进，在MySQL Server过滤条件，发现不满足后，会调用unlock_row方法，把不满足条件的记录释放锁 (违背了二段锁协议的约束)。
-这样做，保证了最后只会持有满足条件记录上的锁，但是每条记录的加锁操作还是不能省略的。可见即使是MySQL，为了效率也是会违反规范的。（参见《高性能MySQL》中文第三版p181）&lt;/p&gt;
 &lt;h2&gt;解决不可重复读，使用MVCC与使用锁实现的区别&lt;/h2&gt;
 &lt;p&gt;InnoDB在RR（可重复读）隔离级别下，在事务开始时开启一个快照，在整个事务期间读的都是相同的快照数据，因此没有不可重复读的问题。
 MVCC使用快照读解决不可重复读的问题，不需要加锁。&lt;/p&gt;
 &lt;p&gt;使用锁来解决不可重复读，需要在读数据时加锁，这样其他事务在解锁前就无法修改这些数据了。锁只能锁住已经存在的数据，却无法锁住insert的数据，
 因此不能解决幻读的问题。使用锁还会导致读写冲突，降低数据库的并发能力。&lt;/p&gt;
-&lt;h2&gt;悲观锁与乐观锁&lt;/h2&gt;
-&lt;p&gt;悲观锁与乐观锁是两种不同的思想，用于解决并发场景下的数据竞争问题。&lt;/p&gt;
-&lt;p&gt;悲观锁需要加真实的锁，读取数据时加共享锁（读锁），写数据时加排他锁（写乐）。&lt;/p&gt;
-&lt;p&gt;乐观锁并不真正加锁，只是在更新数据的时候判断一下数据是不是已经被修改，如果数据被修改则放弃操作，否则执行操作。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;乐观锁的实现方式&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CAS&lt;/li&gt;
-&lt;li&gt;版本号&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;CAS操作逻辑如下：如果内存位置V的值等于预期的A值，则将该位置更新为新值B，否则不进行任何操作。&lt;/p&gt;
-&lt;p&gt;版本号机制的基本思路是在数据中增加一个字段version，表示数据的版本号，每当数据被修改时，版本号加1。当查询数据时，将该数据的版本号一起查出来；
-更新数据时，判断一下当前版本号与之前读取的版本号是否一致，如果一致才进行操作，否则放弃操作。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;CAS缺点&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ABA问题&lt;/li&gt;
-&lt;li&gt;如果并发冲突严重，CAS机制会频繁失败，一直重试，消耗CPU严重。&lt;/li&gt;
-&lt;li&gt;CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的。&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h2&gt;InnoDB中MVCC的实现&lt;/h2&gt;
 &lt;p&gt;在InnoDB中，每行数据会有两个额外的值来实现MVCC，一个值记录这行数据何时被创建，一个值记录这行数据何时过期（或者被删除）。实际中这个值存储的是事务的版本号，
 每开启一个新事务，事务的版本号就会加1。&lt;/p&gt;
@@ -330,10 +288,10 @@ commit;
 
 #事务B提交成功并插入数据&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。&lt;/p&gt;
-&lt;p&gt;在RR级别下，事务A在update后加锁，可以避免幻读，加的这个锁，就是间隙锁。行锁和间隙锁的合并，称为Next-Key锁。&lt;/p&gt;
+&lt;p&gt;在RR级别下，事务A在update后加锁，可以避免幻读，加的这个锁，就是next-key lock。行锁和间隙锁的合并，称为Next-Key锁。&lt;/p&gt;
 &lt;p&gt;修改数据后，不仅会在相应的行加行锁，同时也会在数据行两边的区间，加上间隙锁。这样其他事务就无法在两边的区间insert新的数据。&lt;/p&gt;
 &lt;p&gt;行锁防止别的事务修改或删除数据，GAP锁该上别的事务新增数据，行锁和GAP锁结合共同解决了RR级别在写数据时的幻读问题。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/http/</id><title>HTTP</title><updated>2021-06-24T09:33:47.200980+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql/" rel="alternate"/><published>2021-06-16T15:07:17+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/http/</id><title>HTTP</title><updated>2021-06-28T02:15:18.160446+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;多路复用&lt;/li&gt;
 &lt;li&gt;头部压缩&lt;/li&gt;
@@ -365,7 +323,7 @@ commit;
 &lt;p&gt;HTTP1.1提供了管线化技术，可以将多个http请求打包在一起发给服务端，但是返回的响应也必须是按请求的顺序返回，如果某个请求耗时很长，就会阻塞后面的请求，有队头阻塞问题。&lt;/p&gt;
 &lt;p&gt;HTTP/2提出了多路复用技术，在一个tcp连接上可以并行多个请求/响应，不同请求/响应之间互不影响。原理是将消息分成多个二进制帧，二进制帧带有更多信息，标识自己属于哪个请求/响应，
 这样多个请求/响应可以并行处理，不会相互阻塞。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/http/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/hashmap/</id><title>HashMap的实现原理</title><updated>2021-06-24T09:33:47.200949+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;&lt;a href="https://blog.csdn.net/weixin_44015043/article/details/105346187"&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/http/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/hashmap/</id><title>HashMap的实现原理</title><updated>2021-06-28T02:15:18.160421+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;&lt;a href="https://blog.csdn.net/weixin_44015043/article/details/105346187"&gt;原文链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;HashMap的实现原理&lt;/h2&gt;
 &lt;p&gt;JDK1.7中使用的是数组+链表。&lt;/p&gt;
 &lt;p&gt;JDK1.8中使用的是数组+链表+红黑树。当链表长度大于8时，会将链表转化为红黑树；当链表长度小于6时，会将红黑树转化为链表。&lt;/p&gt;
@@ -391,7 +349,7 @@ commit;
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tab&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;hash&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;tab&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;newNode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/hashmap/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis/</id><title>redis设计与实现</title><updated>2021-06-24T09:33:47.200917+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/hashmap/" rel="alternate"/><published>2021-06-17T14:47:10+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis/</id><title>redis设计与实现</title><updated>2021-06-28T02:15:18.160396+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="nc"&gt;sdshdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -681,23 +639,23 @@ TYPE alist  &lt;span class="c1"&gt;# list&lt;/span&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;set&lt;/span&gt; msg &lt;span class="s2"&gt;&amp;quot;hello world&amp;quot;&lt;/span&gt;
 OBJECT ENCODING msg
 &lt;/pre&gt;&lt;/div&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/redis/" rel="alternate"/><published>2021-06-17T17:15:16+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/java_function_program/</id><title>聊聊Java8的函数式编程</title><updated>2021-06-24T09:33:47.200885+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;函数式编程是Java8的一大特色。&lt;/p&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/redis/" rel="alternate"/><published>2021-06-17T17:15:16+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/java_function_program/</id><title>聊聊Java8的函数式编程</title><updated>2021-06-28T02:15:18.160372+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;函数式编程是Java8的一大特色。&lt;/p&gt;
 &lt;h2&gt;Stream&lt;/h2&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/" rel="alternate"/><published>2021-06-18T10:30:05+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_index/</id><title>谈谈数据库的索引</title><updated>2021-06-24T09:33:47.200853+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;索引有哪几种实现的方式？&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/" rel="alternate"/><published>2021-06-18T10:30:05+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_index/</id><title>谈谈数据库的索引</title><updated>2021-06-28T02:15:18.160347+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;索引有哪几种实现的方式？&lt;/h2&gt;
 &lt;p&gt;索引的实现方式有很多种，常见的三种数据结构是哈希表、有序数组和搜索树。&lt;/p&gt;
 &lt;p&gt;哈希表的查询复杂度可以接近O(1)，适合做等值查询，但做范围查询要做全表扫描，效率非常低。&lt;/p&gt;
 &lt;p&gt;有序数组做等值查询和范围查询效率都很高，但更新数据的成本很高。&lt;/p&gt;
 &lt;p&gt;平衡二叉搜索树的查询和更新时间复杂度都是O(logN)。但二叉树的高度可能很高，查询时需要访问多个数据块，就会有多次读取磁盘的操作。为了让一个查询尽量少地读磁盘， 
 应该使用N叉树（多路查找树），使索引树的高度尽量少。一般树根的数据块会加载到内存，一个高度为4的N叉树只需要3次访问磁盘。N叉树由于在读写上的性能优点，
 以及适配磁盘的访问模式，被广泛应用在数据库引擎中。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/" rel="alternate"/><published>2021-06-18T10:45:11+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_ha/</id><title>MySQL高可用</title><updated>2021-06-24T09:33:47.200820+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;主从复制的过程&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/" rel="alternate"/><published>2021-06-18T10:45:11+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/mysql_ha/</id><title>MySQL高可用</title><updated>2021-06-28T02:15:18.160321+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;主从复制的过程&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;master开启binlog功能。&lt;/li&gt;
 &lt;li&gt;master开启io线程，slave开启io线程，sql线程。&lt;/li&gt;
 &lt;li&gt;master通过io线程将binlog日志发送到slave，slave通过io线程接收binlog数据，将其写入relay-log（中继日志）。&lt;/li&gt;
 &lt;li&gt;slave的sql线程实时监测relay-log的内容是否有更新，如果有更新，将里面的sql语句重新执行生成相应的数据。&lt;/li&gt;
 &lt;/ol&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/" rel="alternate"/><published>2021-06-18T16:00:26+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/binary_tree/</id><title>二叉树的前中后序遍历</title><updated>2021-06-24T09:33:47.200782+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;递归法&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/" rel="alternate"/><published>2021-06-18T16:00:26+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/binary_tree/</id><title>二叉树的前中后序遍历</title><updated>2021-06-28T02:15:18.160291+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;递归法&lt;/h2&gt;
 &lt;p&gt;递归算法的三个要素&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;确定递归函数的参数和返回值&lt;/li&gt;
@@ -802,7 +760,7 @@ OBJECT ENCODING msg
 
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/" rel="alternate"/><published>2021-06-24T00:16:53+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</id><title>redis高可用</title><updated>2021-06-24T09:33:47.200713+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;过期删除策略&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/" rel="alternate"/><published>2021-06-24T00:16:53+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</id><title>redis高可用</title><updated>2021-06-28T02:15:18.160240+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;过期删除策略&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://zhuanlan.zhihu.com/p/139423463"&gt;链接&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;定时删除，对内存友好，对cpu不友好&lt;/li&gt;
