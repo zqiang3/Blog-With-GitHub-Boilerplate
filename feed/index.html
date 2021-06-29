@@ -1,181 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Mon, 28 Jun 2021 16:46:01 +0806</lastBuildDate><pubDate>Mon, 28 Jun 2021 16:46:01 +0806</pubDate><item><title>MySQL</title><link>/Blog-With-GitHub-Boilerplate/archives/mysql/</link><description>&lt;h2&gt;聚簇索引与非聚簇索引&lt;/h2&gt;
-&lt;p&gt;聚簇索引(clustered index)：聚簇索引的叶节点存储了整行数据。&lt;/p&gt;
-&lt;p&gt;非聚簇索引：索引树的叶子节点只存储索引字段和主键的值，不存放整行数据。非聚簇索引也称为二级索引。&lt;/p&gt;
-&lt;p&gt;聚簇索引与非聚簇索引的区别是：是否存放完整的整行记录。&lt;/p&gt;
-&lt;p&gt;InnoDB主键使用的是聚簇索引，MyISAM所有的索引（包括主键索引）使用的都是非聚簇索引。&lt;/p&gt;
-&lt;h2&gt;MySQL的聚簇索引一定是主键吗？&lt;/h2&gt;
-&lt;p&gt;在InnoDB中，聚集索引不一定是主键，但主键一定是聚集索引。如果没有为表定义主键，聚集索引会被设为第一个不为NULL的唯一索引，如果也没有这样的唯一索引，
-InnoDB 会选择内置 6 字节长的 ROWID 作为隐含的聚集索引。&lt;/p&gt;
-&lt;h2&gt;COUNT(*) COUNT(1) COUNT(id) COUNT(COLUMN)有区别吗？&lt;/h2&gt;
-&lt;p&gt;先说结论，在高版本的MySQL（5.5及以后），count(1)比count(*)是没有区别的。&lt;/p&gt;
-&lt;p&gt;COUNT(COLUMN)在统计某个列值的数量时，不会统计NULL。当COUNT内的表达式确定不为NULL时，实际上是在统计所有行数。&lt;/p&gt;
-&lt;p&gt;如果表只有一个主键索引，没有其他二级索引，那么&lt;code&gt;COUNT(*)&lt;/code&gt;与&lt;code&gt;COUNT(1)&lt;/code&gt;都是通过主键索引统计行数的。如果该表有二级索引，&lt;code&gt;COUNT(*)&lt;/code&gt;与&lt;code&gt;COUNT(1)&lt;/code&gt;
-会用&lt;strong&gt;占用空间最小&lt;/strong&gt;的二级索引字段作统计。&lt;/p&gt;
-&lt;p&gt;为什么：InnoDB这样操作的原因是为了减少IO次数，因为数据库的瓶颈在IO，通过选择占用空间最小的非NULL索引来统计所有行数，尽可能地减小IO。&lt;/p&gt;
-&lt;p&gt;补充：MyISAM在统计表的总行数时会很快，原因是MyISAM对于表的行数作了优化，具体做法有一个变量用于存储表的总行数。但是，如果加了WHERE查询条件，该优化将不起作用。&lt;/p&gt;
-&lt;h2&gt;辟谣：MySQL中使用IS NULL, IS NOT NULL, != 不能使用索引？胡扯！&lt;/h2&gt;
-&lt;p&gt;NULL值是怎么在记录中存储的：在MySQL中，每一条记录都有固定的格式，以compact格式为会例，在compact格式下，会有一部分记录NULL值列表。NULL值列表是怎么表示的呢？
-首先会统计表中所有可以为NULL的列，然后每个允许为NULL的列对应一个二进制位，逆序排列。如果二进制位为1，表示该列的值为NULL,如果为0表示该列的值不为NULL。另外，
-二进制位的个数是整数个字节。&lt;/p&gt;
-&lt;p&gt;键值为NULL的记录怎么在B+树中存放的？答案是放在B+树的最左边。原因是InnoDB有这样的规定：&lt;/p&gt;
-&lt;blockquote&gt;&lt;p&gt;We define the SQL null to be the smallest possible value of a field.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;补充：NULL字段的数据，只能使用IS NULL查询出来，使用= NULL或!= VALUE都不会查出NULL的数据。
-当使用COUNT(COLUMN)函数进行统计时，NULL的数据不会被计入统计。
-判断列值是否为NULL，必须使用IS NULL和IS NOT NULL。不能使用= NULL或!= NULL，因为在MySQL中，NULL与任何值比较永远返回NULL。&lt;/p&gt;
-&lt;h2&gt;有哪些语句会造成MySQL做全表扫描？&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;&lt;tr&gt;
-&lt;th&gt;语句&lt;/th&gt;
-&lt;th&gt;是否使用索引&lt;/th&gt;
-&lt;th&gt;是否使用全表扫描&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;IS NULL&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;IS NOT NULL&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;!=&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;IN&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;NOT IN&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;td&gt;可能&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;COUNT(*)&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;LIKE '%xxx'&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;使不使用索引的依据是什么？&lt;/p&gt;
-&lt;p&gt;IS NULL、IS NOT NULL、!=这些条件都可能使用到索引，那到底什么时候索引，什么时候采用全表扫描呢？&lt;/p&gt;
-&lt;p&gt;答案是：数据库会根据查询的成本决定何时走索引查询，何时做全表扫描。对二级索引来说，成本主要有两个方面：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;读取二级索引记录的成本&lt;/li&gt;
-&lt;li&gt;执行回表操作的成本&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;当执行回表操作的次数比较多，达到一定比例时，数据库经过计算分析使用二级索引再回表的查询成本超过了全表扫描的成本，就会使用全表扫描。&lt;/p&gt;
-&lt;h2&gt;InnoDB的事务隔离是如何实现的？&lt;/h2&gt;
-&lt;h3&gt;四种隔离级别&lt;/h3&gt;
-&lt;p&gt;未提交读(read uncommitted)，提交读(read committed)，可重复读(repeatable read)，串行化(serializable)。&lt;/p&gt;
-&lt;p&gt;标准SQL事务隔离级别的实现是依赖锁的，但使用锁的方式实现隔离级别需要频繁地加解锁，很容易出现读写冲突。为了不加锁解决读写冲突的问题，MySQL引入的MVCC机制。
-在读提交和可重复读的隔离级别下，InnoDB会创建一个视图（快照），访问数据的时候以视图的逻辑结果为准。在可重复读的隔离级别下，这个视图是在事务启动时创建的。
-在读提交的隔离级别下，视图是在每条sql语句开始执行时创建的。在读未提交的隔离级别下，不提供隔离措施，不会创建视图，但更新某行数据时加共享锁。
-串行化的隔离级别是通过加锁的方式避免并行访问。&lt;/p&gt;
-&lt;h3&gt;锁定读和一致性非锁定读&lt;/h3&gt;
-&lt;p&gt;锁定读：在一个事务中进行查询时，主动给读加锁。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;SELECT ... LOCK IN SHARE MODE  &lt;span class="c1"&gt;# 加了行共享锁&lt;/span&gt;
-SELECT ... FOR UPDATE  &lt;span class="c1"&gt;# 加了行排他锁&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;一致性非锁定读：
-事务在进行查询时，数据库通过使用MVCC提供某个时间点的数据快照，查询会看到该时间点之前事务对数据的更改，而不会看到该时间点之后事务对数据的更改或未提交的更改。
-consistent read是InnoDB在RC和RR隔离级别下进行SELECT查询的默认模式。&lt;/p&gt;
-&lt;h3&gt;当前读和快照读&lt;/h3&gt;
-&lt;p&gt;当前读：当前读读取的是数据的最新版本，像UPDATE, DELETE, INSERT, SELECT ... LOCK IN SHARE MODE, SELECT ... FOR UPDATE等操作都是当前读。
-当前读要保证其他并发事务不会修改当前读取的数据，会对相应记录加锁。&lt;/p&gt;
-&lt;p&gt;快照读：快照读读取的数据是快照版本，也就是历史版本，像不加锁的SELECT就是快照读。快照读的前提是不在未提交读和串行化的隔离级别下，因为未提交读问题读取最新的数据，串行化则是对表加锁。&lt;/p&gt;
-&lt;h3&gt;InnoDB对事务的实现&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;&lt;tr&gt;
-&lt;th&gt;事务隔离级别&lt;/th&gt;
-&lt;th&gt;实现方式&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;未提交读&lt;/td&gt;
-&lt;td&gt;读数据不加锁，都是当前读；更新数据，加行级共享锁，直到事务结束才释放&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;提交读&lt;/td&gt;
-&lt;td&gt;读数据不加锁，都是快照读；更新数据，加行级排他锁，直到事务结束才释放&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;可重复读&lt;/td&gt;
-&lt;td&gt;读数据不加锁，都是快照读；更新数据时，加行级排他锁，间隙锁，直到事务结束才释放&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;串行化&lt;/td&gt;
-&lt;td&gt;读取数据时，加表级共享锁，都是当前读；更新数据时，加表级排他锁，直到事务结束才释放&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;在RR隔离级别下，InnoDB通过快照读，解决了不可重复读的问题，通过间隙锁，解决了幻读的问题。
-通过MVCC，InnoDB可以在RC隔离级别解决不可重复读的问题，可以在RR隔离级别解决幻读的问题。&lt;/p&gt;
-&lt;h2&gt;解决不可重复读，使用MVCC与使用锁实现的区别&lt;/h2&gt;
-&lt;p&gt;InnoDB在RR（可重复读）隔离级别下，在事务开始时开启一个快照，在整个事务期间读的都是相同的快照数据，因此没有不可重复读的问题。
-MVCC使用快照读解决不可重复读的问题，不需要加锁。&lt;/p&gt;
-&lt;p&gt;使用锁来解决不可重复读，需要在读数据时加锁，这样其他事务在解锁前就无法修改这些数据了。锁只能锁住已经存在的数据，却无法锁住insert的数据，
-因此不能解决幻读的问题。使用锁还会导致读写冲突，降低数据库的并发能力。&lt;/p&gt;
-&lt;h2&gt;InnoDB中MVCC的实现&lt;/h2&gt;
-&lt;p&gt;在InnoDB中，每行数据会有两个额外的值来实现MVCC，一个值记录这行数据何时被创建，一个值记录这行数据何时过期（或者被删除）。实际中这个值存储的是事务的版本号，
-每开启一个新事务，事务的版本号就会加1。&lt;/p&gt;
-&lt;p&gt;读取数据时，只会读到小于等于当前事务版本号的数据。通过MVCC，虽然每行记录都需要额外的存储空间，但可以减少锁的使用，大多数读操作都不用加锁。&lt;/p&gt;
-&lt;h3&gt;RR隔离级别下，如何解决幻读？&lt;/h3&gt;
-&lt;p&gt;在RR隔离级别下，只靠MVCC，可以解决幻读吗？&lt;/p&gt;
-&lt;p&gt;如果只是快照读&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;begin;
-
-#假设users表为空，下面查出来的数据为空
-
-select * from users; #没有加锁
-
-#此时另一个事务提交了，且插入了一条id=1的数据
-
-select * from users; #读快照，查出来的数据为空
-
-update users set name='mysql' where id=1;#update是当前读，所以更新成功，并生成一个更新的快照
-
-select * from users; #读快照，查出来id为1的一条记录，因为MVCC可以查到当前事务生成的快照
-
-commit;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;begin;
-
-#假设users表为空，下面查出来的数据为空
-
-select * from users lock in share mode; #加上共享锁
-
-#此时另一个事务B想提交且插入了一条id=1的数据，由于有间隙锁，所以要等待
-
-select * from users; #读快照，查出来的数据为空
-
-update users set name='mysql' where id=1;#update是当前读，由于不存在数据，不进行更新
-
-select * from users; #读快照，查出来的数据为空
-
-commit;
-
-#事务B提交成功并插入数据&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;注意: RR模式下想解决幻读问题，需要我们显式加锁，不然查询的时候还是不会加锁的。&lt;/p&gt;
-&lt;p&gt;在RR级别下，事务A在update后加锁，可以避免幻读，加的这个锁，就是next-key lock。行锁和间隙锁的合并，称为Next-Key锁。&lt;/p&gt;
-&lt;p&gt;修改数据后，不仅会在相应的行加行锁，同时也会在数据行两边的区间，加上间隙锁。这样其他事务就无法在两边的区间insert新的数据。&lt;/p&gt;
-&lt;p&gt;行锁防止别的事务修改或删除数据，GAP锁该上别的事务新增数据，行锁和GAP锁结合共同解决了RR级别在写数据时的幻读问题。&lt;/p&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/mysql/</guid><pubDate>Wed, 16 Jun 2021 15:07:17 +0806</pubDate></item><item><title>HTTP</title><link>/Blog-With-GitHub-Boilerplate/archives/http/</link><description>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Tue, 29 Jun 2021 11:13:25 +0806</lastBuildDate><pubDate>Tue, 29 Jun 2021 11:13:25 +0806</pubDate><item><title>HTTP</title><link>/Blog-With-GitHub-Boilerplate/archives/http/</link><description>&lt;h2&gt;HTTP2的特性&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;多路复用&lt;/li&gt;
 &lt;li&gt;头部压缩&lt;/li&gt;
@@ -236,7 +60,28 @@ commit;
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/hashmap/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item><item><title>二分查找</title><link>/Blog-With-GitHub-Boilerplate/archives/hashmap/</link><description>&lt;h2&gt;二分查找，魔鬼都在细节里！&lt;/h2&gt;
 &lt;p&gt;二分查找的基本思想不难，但是，如果让你手撕一道二分查找的变体题时，能一遍写对代码还是很不容易的。一个等号就要人老命！&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/"&gt;33. 搜索旋转排序数组&lt;/a&gt;&lt;/p&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/hashmap/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item><item><title>redis设计与实现</title><link>/Blog-With-GitHub-Boilerplate/archives/redis/</link><description>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/hashmap/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item><item><title>Docker</title><link>/Blog-With-GitHub-Boilerplate/archives/http/</link><description>&lt;ul&gt;
+&lt;li&gt;Docker官方主页(&lt;a href="http://www.docker.com/)。"&gt;http://www.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker Hub(&lt;a href="http://hub.docker.com)。"&gt;http://hub.docker.com)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker官方博客(&lt;a href="http://blog.docker.com/)。"&gt;http://blog.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker官方文档(&lt;a href="http://docs.docker.com/)。"&gt;http://docs.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker快速入门指南(&lt;a href="https://docs.docker.com/get-started/overview/)。"&gt;https://docs.docker.com/get-started/overview/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker的GitHub 源代码(&lt;a href="https://github.com/docker/docker)。"&gt;https://github.com/docker/docker)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker Forge(&lt;a href="https://github.com/dockerforge):收集了各种Docker工具、组件和服务。"&gt;https://github.com/dockerforge):收集了各种Docker工具、组件和服务。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker邮件列表(&lt;a href="https://groups.google.com/forum/#!forum/docker-user)。"&gt;https://groups.google.com/forum/#!forum/docker-user)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker的IRC 频道(irc.freenode.net)。&lt;/li&gt;
+&lt;li&gt;Docker的Twitter主页(&lt;a href="http://twitter.com/docker)。"&gt;http://twitter.com/docker)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker的StackOverflow问答主页(&lt;a href="http://stackoverflow.com/search?q=docker)。"&gt;http://stackoverflow.com/search?q=docker)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker官网(&lt;a href="http://www.docker.com/)。"&gt;http://www.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;孙洪亮的 Docker源码分析&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.zhihu.com/pub/book/119564848"&gt;Docker开发指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.zhihu.com/pub/reader/119943940/chapter/1283922533264543744"&gt;Kubernetes权威指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://martinfowler.com/microservices/"&gt;微服务资源指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;微服务设计 Sam Newman&lt;/li&gt;
+&lt;/ul&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/http/</guid><pubDate>Thu, 17 Jun 2021 14:47:10 +0806</pubDate></item><item><title>redis设计与实现</title><link>/Blog-With-GitHub-Boilerplate/archives/redis/</link><description>&lt;h2&gt;简单动态字符串(SDS)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="nc"&gt;sdshdr&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
