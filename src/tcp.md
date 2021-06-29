@@ -97,6 +97,7 @@ UDP的缺点：
 * net.core.somaxconn: 全连接队列。服务端收到三次握手中第三步客户端的ACK，就会把这个连接放到全连接队列中。
   全连接队列中的连接还需要被accept()系统调用取走，服务端才开始处理客户端的请求。建议适当调大。
 * net.ipv4.tcp_abort_on_overflow: 全连接队列满了后，新的连接就会被丢弃掉，服务端的默认行为是直接丢弃不通知客户端。
+
 **数据传输阶段**
 net.ipv4.tcp_wmem
 net.core.wmem_max
