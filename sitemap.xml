@@ -54,7 +54,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>/Blog-With-GitHub-Boilerplate/archives/http/</loc>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/docker/</loc>
     <lastmod>2021-06-17</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
