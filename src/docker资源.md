@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Docker
-slug: http
+slug: docker
 date: 2021-06-17 14:47:10
 status: publish
 author: 君祁

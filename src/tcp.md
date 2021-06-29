@@ -88,6 +88,31 @@ UDP的缺点：
 * UDP适用于对网络通讯质量要求不高的场景，如音视频传输。
 
 ## TCP内核参数优化
+**建立连接阶段**
 * net.ipv4.tcp_syn_retries：tcp三次握手中发送syn得不到服务端响应时重传syn的次数。
 * net.ipv4.tcp_syncookies: 默认开启，建议开启，可以提升对SYN flood攻击的防护能力。
 * net.ipv4.tcp_synack_retries: tcp三次握手第二步服务端发送syn+ack得不到响应时重传的次数。
+* net.ipv4.tcp_max_syn_backlog: 控制半连接队列大小。服务端收到客户端的SYN包后，就会把这个连接放到半连接队列中，
+  然后再向客户端发送SYN+ACK。建议调大。
+* net.core.somaxconn: 全连接队列。服务端收到三次握手中第三步客户端的ACK，就会把这个连接放到全连接队列中。
+  全连接队列中的连接还需要被accept()系统调用取走，服务端才开始处理客户端的请求。建议适当调大。
+* net.ipv4.tcp_abort_on_overflow: 全连接队列满了后，新的连接就会被丢弃掉，服务端的默认行为是直接丢弃不通知客户端。
+**数据传输阶段**
+net.ipv4.tcp_wmem
+net.core.wmem_max
+net.ipv4.tcp_mem
+net.ipv4.tcp_rmem
+net.core.rmem_max
+net.ipv4.tcp_window_scaling
+net.ipv4.tcp_keepalive_probes
+net.ipv4.tcp_keepalive_intvl
+net.ipv4.tcp_keepalive_time
+net.ipv4.tcp_available_congestion_control
+net.ipv4.tcp_congestion_control
+
+**断开连接阶段**
+* net.ipv4.tcp_fin_timeout：从FIN_WAIT_2到TIME_WAIT的超时时间。长时间收不到对端FIN包，大概率是对端机器有问题，
+  不能及时调用close()关闭连接，建议调低，避免等待时间太长，资源开销太大。
+* net.ipv4.tcp_max_tw_buckets: 系统TIME_WAIT连接的最大数量，根据实际业务需要调整，超过最大值后dmesg会有报错TCP：
+  time wait bucket table overflow
+* net.ipv4.tcp_tw_reuse: 允许TIME_WAIT状态的连接占用的端口用到新建连接，客户端可开启
