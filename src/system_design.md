@@ -38,6 +38,16 @@ excerpt: system design
 
 [如何优化高并发IM系统架构](https://help.aliyun.com/document_detail/143555.html?spm=a2c4g.11174283.6.686.66f930afTL8fnv)
 
+[如何保证IM实时消息的“时序性”与“一致性”](http://www.52im.net/thread-714-1-1.html)
+
+[新手入门一篇就够：从零开发移动端IM](http://www.52im.net/thread-464-1-1.html)
+
+[TCP/IP详解](http://www.52im.net/topic-tcpipvol1.html)
+
+[史上最全移动弱网络优化方法总结](http://www.52im.net/thread-1588-1-1.html)
+
+[为什么QQ用的是UDP协议而不是TCP协议？](http://www.52im.net/thread-279-1-1.html)
+
 ## 分布式唯一 ID
 [分布式唯一 ID](https://xie.infoq.cn/article/6673de15fabf57e46017c12c4)
 
