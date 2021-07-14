@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="君祁,blog" />
+    <meta name="generator" content="Maverick 1.1" />
+    <meta name="template" content="Kepler" />
+    <link rel="alternate" type="application/rss+xml" title="君祁的技术博客 &raquo; RSS 2.0" href="/Blog-With-GitHub-Boilerplate/feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title="君祁的技术博客 &raquo; ATOM 1.0" href="/Blog-With-GitHub-Boilerplate/feed/atom/index.xml" />
+    <link rel="stylesheet" href="/Blog-With-GitHub-Boilerplate/assets/kepler-426969802d.css">
+    <link rel="stylesheet" href="/Blog-With-GitHub-Boilerplate/assets/ExSearch/ExSearch-182e5a8868.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+    <script>
+        var ExSearchConfig = {
+            root: "",
+            api: "/Blog-With-GitHub-Boilerplate/333fe6a85b23a78038153dae8cc00111.json"
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)){
+                document.body.classList.add('safari')
+            }else{
+                document.body.classList.remove('safari')
+            }
+        });
+    </script>
+    
+<title>一致性问题 - 君祁的技术博客</title>
+<meta name="author" content="君祁" />
+<meta name="description" content="consistency" />
+<meta property="og:title" content="一致性问题 - 君祁的技术博客" />
+<meta property="og:description" content="consistency" />
+<meta property="og:site_name" content="君祁的技术博客" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/Blog-With-GitHub-Boilerplate/archives/consistency/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2021-07-14T19:45:39-00.00" />
+<meta name="twitter:title" content="一致性问题 - 君祁的技术博客" />
+<meta name="twitter:description" content="consistency" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="" />
+
+
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+
+    </head>
+    
+    <body class="content">
+        <header>
+            <div class="container">
+                <section>
+                    <a href="/Blog-With-GitHub-Boilerplate/"><img src="/Blog-With-GitHub-Boilerplate/logo.png">君祁的技术博客</a>
+                </section>
+                <section>
+                    <nav>
+                        <ul>
+                            
+                                <li><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick</a></li>
+                            
+                                <li><a href="https://github.com/zqiang3" target="_blank">github</a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+    
+                <section>
+                    <a hidden class="toggle-toc" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('toc-open')"><i class="fa fa-align-right"></i></a>
+                    <a hidden class="toggle-navbar" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('navbar-open')"><i class="fa fa-indent"></i></a>
+                    <button class="search-form-input"><i class="fa fa-search"></i></button>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div id="pjax-container" class="container">
+                <aside id="navbar" class="no-scrollbar">
+                    
+                    <section class="sidebar-nav">
+                        
+                            <div class="None" ><span><a href="/Blog-With-GitHub-Boilerplate/">首页</a></span></div>
+                        
+                            <div class="None" ><span><a href="/Blog-With-GitHub-Boilerplate/archives/">归档</a></span></div>
+                        
+                            <div class="None" ><span><a href="/Blog-With-GitHub-Boilerplate/about/">关于</a></span></div>
+                        
+                    </section>
+                    
+                    <section>
+                        
+    <div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/容器技术/">容器技术</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/docker/">docker</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/container_docker/">Docker</a></li></ul></div><div class="open "><span><a href="/Blog-With-GitHub-Boilerplate/category/Maverick/">Maverick</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/ddd/">领域驱动设计</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/blog_template/">blog_template</a></li><li class="current"><a href="/Blog-With-GitHub-Boilerplate/archives/consistency/">一致性问题</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/">redis高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/redis/">redis设计与实现</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/message_queue/">消息队列</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/system_design/">系统设计</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/typography/">Hello World!</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/algorithm/">algorithm</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/algorithm/">algorithm_summary</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/">二叉树的前中后序遍历</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/binary_search/">二分查找</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_ha/">MySQL高可用</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_index/">谈谈数据库的索引</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql/">MySQL</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/Java/">Java</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/java_function_program/">聊聊Java8的函数式编程</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/hashmap/">HashMap的实现原理</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/网络/">网络</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/http/">HTTP</a></li><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/tcp/">TCP</a></li></ul></div><div class=" "><span><a href="/Blog-With-GitHub-Boilerplate/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/Blog-With-GitHub-Boilerplate/archives/mysql_lock/">MySQL锁</a></li></ul></div>
+
+                    </section>
+                    <section hidden class="sidebar-external-link">
+                        
+                            <div class="external"><span><a href="https://github.com/AlanDecode/Maverick">Maverick</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                            <div class="external"><span><a href="https://github.com/zqiang3">github</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                    </section>
+                    <section class="maverick">
+                        <div><span style="border: 1px solid #d4dadf;"><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick & Kepler</a></span></div>
+                    </section>
+                </aside>
+                <div id="content-wrapper">
+                    <div id="content">
+    <section>
+        <h1 class="post-title">一致性问题</h1>
+        <p class="post-meta">
+            <time>July 14 2021</time>
+            <span class="tags">
+                
+                <span>
+                    <a href="/Blog-With-GitHub-Boilerplate/tag/distributed system/">#distributed system</a>
+                </span>
+                
+            </span>
+        </p>
+        <article class="yue"><h2>一致性问题的产生</h2>
+<p>同一份数据有多份副本，我们面临这样的问题，如何在它们之间同步数据，以便让客户端对数据有一致性的视图。 CAP理论对一致性的定义：每次读请求都能收到最新的数据或者是错误。</p>
+<h2>弱一致性</h2>
+<p>写入数据后，客户端访问可能看不到最新写入的数据，系统优先保证响应速度。弱一致性适合音视频聊天，实时多人游戏等场景。</p>
+<h2>最终一致性</h2>
+<p>写入数据后，客户端访问最终能看到写入的新数据（可能延迟几毫秒），数据被异步复制。 最终一致性在高可用系统中效果不错。</p>
+<h2>强一致性</h2>
+<p>写入数据后，客户端访问到的一定是最新数据。数据被同步复制。 强一致性适合需要事务的场景。</p>
+</article>
+    </section>
+
+    
+    <section id="content-pager">
+        
+            <div class="next">
+                <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/blog_template/">
+                    <time>July 14 2021</time>
+                    <span>blog_template</span>
+                </a>
+            </div>
+        
+        
+            <div class="prev">
+                <a class="card" href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/">
+                    <time>June 24 2021</time>
+                    <span>redis高可用</span>
+                </a>
+            </div>
+        
+    </section>
+    
+
+    
+
+    <script>
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
+    </script>
+</div>
+                    <footer>
+                        <span>Copyright © 2021 君祁</span>
+                        
+    
+
+                        
+                    </footer>
+                </div>
+                
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
+
+            </div>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+        <script src="/Blog-With-GitHub-Boilerplate/assets/kepler-ef161b04d5.js"></script>
+        <script>
+            function ExSearchCall(item){
+                if (item && item.length) {
+                    $('.ins-close').click(); // 关闭搜索框
+                    $('input.ins-search-input').val(''); // 清空
+                    let url = item.attr('data-url'); // 获取目标页面 URL
+                    $.pjax({url: url, 
+                        container: '#pjax-container',
+                        fragment: '#pjax-container',
+                        timeout: 8000, }); // 发起一次 PJAX 请求
+                }
+            }
+        </script>
+
+        <!--Valine-->
+        
+
+        <!--ExSearch-->
+        <script src="/Blog-With-GitHub-Boilerplate/assets/ExSearch/ExSearch-493cb9cd89.js"></script>
+        
+        <!--katex-->
+        <link rel="stylesheet" href="/Blog-With-GitHub-Boilerplate/assets/katex.min.css">
+        <script defer src="/Blog-With-GitHub-Boilerplate/assets/katex.min.js"></script>
+        <script>
+        mathOpts = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        };
+        </script>
+        <script defer src="/Blog-With-GitHub-Boilerplate/assets/auto-render.min.js" onload="renderMathInElement(document.body, mathOpts);"></script>
+
+        
+    </body>
+</html>

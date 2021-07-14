@@ -12,6 +12,41 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/docker/</loc>
+    <lastmod>2021-07-14</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/ddd/</loc>
+    <lastmod>2021-07-14</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/algorithm/</loc>
+    <lastmod>2021-07-14</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/blog_template/</loc>
+    <lastmod>2021-07-14</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/consistency/</loc>
+    <lastmod>2021-07-14</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
     <loc>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</loc>
     <lastmod>2021-06-24</lastmod>
     <changefreq>always</changefreq>
@@ -54,7 +89,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>/Blog-With-GitHub-Boilerplate/archives/container_docker/</loc>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/hashmap/</loc>
     <lastmod>2021-06-17</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -68,13 +103,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>/Blog-With-GitHub-Boilerplate/archives/hashmap/</loc>
-    <lastmod>2021-06-17</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
     <loc>/Blog-With-GitHub-Boilerplate/archives/http/</loc>
     <lastmod>2021-06-17</lastmod>
     <changefreq>always</changefreq>
@@ -82,8 +110,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>/Blog-With-GitHub-Boilerplate/archives/mysql/</loc>
-    <lastmod>2021-06-16</lastmod>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/container_docker/</loc>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
@@ -96,7 +124,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>/Blog-With-GitHub-Boilerplate/archives/system_design/</loc>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/mysql/</loc>
+    <lastmod>2021-06-16</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/mysql_lock/</loc>
     <lastmod>2021-06-16</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -110,7 +145,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>/Blog-With-GitHub-Boilerplate/archives/mysql_lock/</loc>
+    <loc>/Blog-With-GitHub-Boilerplate/archives/system_design/</loc>
     <lastmod>2021-06-16</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
