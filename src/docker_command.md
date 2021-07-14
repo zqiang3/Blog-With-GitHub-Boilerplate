@@ -1,7 +1,7 @@
 ---
 layout: post
-title: docker
-slug: docker
+title: docker commands
+slug: docker_commands
 date: 2021-07-14 19:57:36
 status: publish
 author: 君祁
