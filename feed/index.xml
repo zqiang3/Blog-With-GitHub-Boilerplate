@@ -1,14 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Wed, 14 Jul 2021 11:59:21 +0806</lastBuildDate><pubDate>Wed, 14 Jul 2021 11:59:21 +0806</pubDate><item><title>聊聊Java8的函数式编程</title><link>/Blog-With-GitHub-Boilerplate/archives/java_function_program/</link><description>&lt;p&gt;函数式编程是Java8的一大特色。&lt;/p&gt;
-&lt;h2&gt;Stream&lt;/h2&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/java_function_program/</guid><pubDate>Fri, 18 Jun 2021 10:30:05 +0806</pubDate></item><item><title>谈谈数据库的索引</title><link>/Blog-With-GitHub-Boilerplate/archives/mysql_index/</link><description>&lt;h2&gt;索引有哪几种实现的方式？&lt;/h2&gt;
-&lt;p&gt;索引的实现方式有很多种，常见的三种数据结构是哈希表、有序数组和搜索树。&lt;/p&gt;
-&lt;p&gt;哈希表的查询复杂度可以接近O(1)，适合做等值查询，但做范围查询要做全表扫描，效率非常低。&lt;/p&gt;
-&lt;p&gt;有序数组做等值查询和范围查询效率都很高，但更新数据的成本很高。&lt;/p&gt;
-&lt;p&gt;平衡二叉搜索树的查询和更新时间复杂度都是O(logN)。但二叉树的高度可能很高，查询时需要访问多个数据块，就会有多次读取磁盘的操作。为了让一个查询尽量少地读磁盘， 
-应该使用N叉树（多路查找树），使索引树的高度尽量少。一般树根的数据块会加载到内存，一个高度为4的N叉树只需要3次访问磁盘。N叉树由于在读写上的性能优点，
-以及适配磁盘的访问模式，被广泛应用在数据库引擎中。&lt;/p&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/mysql_index/</guid><pubDate>Fri, 18 Jun 2021 10:45:11 +0806</pubDate></item><item><title>MySQL高可用</title><link>/Blog-With-GitHub-Boilerplate/archives/mysql_ha/</link><description>&lt;h2&gt;主从复制的过程&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link><description>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>/Blog-With-GitHub-Boilerplate/logo.png</url><title>君祁的技术博客</title><link>/Blog-With-GitHub-Boilerplate/</link></image><language>zh-CN</language><lastBuildDate>Thu, 15 Jul 2021 09:09:46 +0806</lastBuildDate><pubDate>Thu, 15 Jul 2021 09:09:46 +0806</pubDate><item><title>MySQL高可用</title><link>/Blog-With-GitHub-Boilerplate/archives/mysql_ha/</link><description>&lt;h2&gt;主从复制的过程&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;master开启binlog功能。&lt;/li&gt;
 &lt;li&gt;master开启io线程，slave开启io线程，sql线程。&lt;/li&gt;
@@ -213,7 +204,7 @@
 </description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/consistency/</guid><pubDate>Wed, 14 Jul 2021 19:45:39 +0806</pubDate></item><item><title>blog_template</title><link>/Blog-With-GitHub-Boilerplate/archives/blog_template/</link><description>&lt;ul&gt;
 &lt;li&gt;&lt;a href="https://hexo.io/"&gt;hexo&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/blog_template/</guid><pubDate>Wed, 14 Jul 2021 19:47:55 +0806</pubDate></item><item><title>algorithm_summary</title><link>/Blog-With-GitHub-Boilerplate/archives/algorithm/</link><description>&lt;h2&gt;二分查找&lt;/h2&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/blog_template/</guid><pubDate>Wed, 14 Jul 2021 19:47:55 +0806</pubDate></item><item><title>算法套路总结</title><link>/Blog-With-GitHub-Boilerplate/archives/algorithm_summary/</link><description>&lt;h2&gt;二分查找&lt;/h2&gt;
 &lt;h2&gt;双指针&lt;/h2&gt;
 &lt;p&gt;双指针技巧分为两类，一类是快慢指针，一类是左右指针。&lt;/p&gt;
 &lt;h2&gt;滑动窗口&lt;/h2&gt;
@@ -234,7 +225,7 @@
 &lt;p&gt;&lt;a href="https://leetcode-cn.com/problems/two-sum/"&gt;TwoSum问题&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;二叉树&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://github.com/labuladong/fucking-algorithm/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%B3%BB%E5%88%97/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E6%93%8D%E4%BD%9C%E9%9B%86%E9%94%A6.md"&gt;二叉树集锦&lt;/a&gt;&lt;/p&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/algorithm/</guid><pubDate>Wed, 14 Jul 2021 19:52:25 +0806</pubDate></item><item><title>领域驱动设计</title><link>/Blog-With-GitHub-Boilerplate/archives/ddd/</link><description></description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/ddd/</guid><pubDate>Wed, 14 Jul 2021 19:56:11 +0806</pubDate></item><item><title>docker</title><link>/Blog-With-GitHub-Boilerplate/archives/docker/</link><description>&lt;h2&gt;docker commands&lt;/h2&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/algorithm_summary/</guid><pubDate>Wed, 14 Jul 2021 19:52:25 +0806</pubDate></item><item><title>领域驱动设计</title><link>/Blog-With-GitHub-Boilerplate/archives/ddd/</link><description></description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/ddd/</guid><pubDate>Wed, 14 Jul 2021 19:56:11 +0806</pubDate></item><item><title>docker commands</title><link>/Blog-With-GitHub-Boilerplate/archives/docker_commands/</link><description>&lt;h2&gt;docker commands&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;attach: Attach local standard input, output, and error streams to a running container&lt;/li&gt;
 &lt;li&gt;build: Build an image from a Dockerfile&lt;/li&gt;
@@ -272,4 +263,42 @@
 &lt;h2&gt;docker run&lt;/h2&gt;
 &lt;p&gt;使用docker run的时候，通过-v HOST_DIR:CONTAINER_DIR参数来指定数据卷使用的主机目录，这个做法一般被称为“绑定挂载”。
 主机目录指运行docker引擎的机器。如果是远程连接到docker服务的话，那么远端的计算机必须已经存在该路径。&lt;/p&gt;
-</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/docker/</guid><pubDate>Wed, 14 Jul 2021 19:57:36 +0806</pubDate></item></channel></rss>
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/docker_commands/</guid><pubDate>Wed, 14 Jul 2021 19:57:36 +0806</pubDate></item><item><title>docker资源</title><link>/Blog-With-GitHub-Boilerplate/archives/docker_resource/</link><description>&lt;ul&gt;
+&lt;li&gt;Docker官方主页(&lt;a href="http://www.docker.com/)。"&gt;http://www.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker Hub(&lt;a href="http://hub.docker.com)。"&gt;http://hub.docker.com)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker官方博客(&lt;a href="http://blog.docker.com/)。"&gt;http://blog.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker官方文档(&lt;a href="http://docs.docker.com/)。"&gt;http://docs.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker快速入门指南(&lt;a href="https://docs.docker.com/get-started/overview/)。"&gt;https://docs.docker.com/get-started/overview/)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker的GitHub 源代码(&lt;a href="https://github.com/docker/docker)。"&gt;https://github.com/docker/docker)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker Forge(&lt;a href="https://github.com/dockerforge):收集了各种Docker工具、组件和服务。"&gt;https://github.com/dockerforge):收集了各种Docker工具、组件和服务。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker邮件列表(&lt;a href="https://groups.google.com/forum/#!forum/docker-user)。"&gt;https://groups.google.com/forum/#!forum/docker-user)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker的IRC 频道(irc.freenode.net)。&lt;/li&gt;
+&lt;li&gt;Docker的Twitter主页(&lt;a href="http://twitter.com/docker)。"&gt;http://twitter.com/docker)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker的StackOverflow问答主页(&lt;a href="http://stackoverflow.com/search?q=docker)。"&gt;http://stackoverflow.com/search?q=docker)。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Docker官网(&lt;a href="http://www.docker.com/)。"&gt;http://www.docker.com/)。&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;孙洪亮的 Docker源码分析&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.zhihu.com/pub/book/119564848"&gt;Docker开发指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.zhihu.com/pub/reader/119943940/chapter/1283922533264543744"&gt;Kubernetes权威指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://martinfowler.com/microservices/"&gt;微服务资源指南&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;微服务设计 Sam Newman&lt;/li&gt;
+&lt;/ul&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/docker_resource/</guid><pubDate>Wed, 14 Jul 2021 20:01:42 +0806</pubDate></item><item><title>健康习惯</title><link>/Blog-With-GitHub-Boilerplate/archives/health_habbit/</link><description>&lt;p&gt;【起居有常，饮食有度，远离妄念】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;保证充足的睡眠。最好是【早睡早起】，比如：11点之前睡，7点起床。&lt;/li&gt;
+&lt;li&gt;饮水的【5要】和【5不要】。晨起喝温水，小口喝水，工作时保持喝水，身体不适多喝水，饭前饭后喝水(尽量不在吃饭的时候喝水)。&lt;/li&gt;
+&lt;li&gt;生活有规律，合理安排每一天的工作、生活、娱乐、学习。&lt;/li&gt;
+&lt;li&gt;避免久坐！！！&lt;/li&gt;
+&lt;li&gt;坚持锻炼。&lt;/li&gt;
+&lt;li&gt;定期体检。&lt;/li&gt;
+&lt;li&gt;注意牙齿健康。饭后及时漱口，晨起喝睡前记得刷牙，必要时借助牙线进行清洁，定期更换牙刷。每半年到一年洗一次牙。&lt;/li&gt;
+&lt;li&gt;均衡营养、合理运动、优质睡眠、缓解压力、积极心态。&lt;/li&gt;
+&lt;li&gt;注意清洁和保湿，做好这两件事，就足够解决很多皮肤问题。&lt;/li&gt;
+&lt;li&gt;学习如何冥想。&lt;/li&gt;
+&lt;li&gt;不着急，慢慢来，人生是一场马拉松，活得久的人才有可能取得最后的胜利。&lt;/li&gt;
+&lt;li&gt;多抱抱你的家人、爱人、朋友，可以有效缓解压力。&lt;/li&gt;
+&lt;li&gt;心存敬畏。敬规律，敬天地，敬良心，敬道德。有所为有所不为，道德底线不能突破。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://ixyzero.com/blog/archives/4874.html"&gt;链接&lt;/a&gt;&lt;/p&gt;
+</description><author>zqiang33@163.com (君祁)</author><guid isPermaLink="true">/Blog-With-GitHub-Boilerplate/archives/health_habbit/</guid><pubDate>Thu, 15 Jul 2021 17:07:00 +0806</pubDate></item></channel></rss>
