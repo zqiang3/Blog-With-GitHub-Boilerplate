@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "/Blog-With-GitHub-Boilerplate/df39edf1acd162ae7be4665f47593fb7.json"
+            api: "/Blog-With-GitHub-Boilerplate/b3bb541767ea94646ee6088962ec1fc3.json"
         }
     </script>
     <script>
@@ -177,6 +177,9 @@
 <li>需要人为手工操作，需要通知业务方做变更配置，整个过程需要人为干预，较为烦琐</li>
 </ol>
 <p>在主-从模式里，如果主服务器宕机了，虽然可以由从机来代替主机继续服务，但这需要人工把从机切换成主机，需要人工干预，还会造成一段时间服务不可用。</p>
+<p><strong>异步复制</strong>
+Redis的主从复制是异步复制，异步分为两个方面，一个是master服务器在将数据同步到slave是异步的，一个是slave在接收同步数据时也是异步的。</p>
+<p>主从复制的模式是异步复制的，主向从发送数据后就返回了，并不等待从成功写入数据。异步复制会导致数据的一致性较差，可能会产生数据丢失。</p>
 <h2>sentinel</h2>
 <p>Sentinel是Redis的高可用性解决方案。</p>
 <p><strong>故障转移的过程</strong></p>
