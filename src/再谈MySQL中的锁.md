@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 数据库锁
-slug: mysql_index
+slug: database_lock
 date: 2021-06-18 10:45:11
 status: publish
 author: 君祁
