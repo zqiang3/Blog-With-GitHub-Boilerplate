@@ -1,15 +1,16 @@
 ---
 layout: post
-title: 再谈MySQL中的锁
-slug: mysql_lock
-date: 
+title: 数据库锁
+slug: mysql_index
+date: 2021-06-18 10:45:11
 status: publish
 author: 君祁
 categories:
-  - MySQL
+- 数据库
 tags:
-  - lock
-excerpt: MySQL, lock
+- mysql
+- index
+excerpt: mysql index
 ---
 
 ## Reference
