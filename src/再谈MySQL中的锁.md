@@ -6,10 +6,10 @@ date:
 status: publish
 author: 君祁
 categories:
-- MySQL
-  tags:
-- lock
-  excerpt: MySQL, lock
+  - MySQL
+tags:
+  - lock
+excerpt: MySQL, lock
 ---
 
 ## Reference
