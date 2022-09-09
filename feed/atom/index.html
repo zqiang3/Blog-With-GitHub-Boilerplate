@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>/Blog-With-GitHub-Boilerplate/</id><title>君祁的技术博客</title><updated>2022-09-09T06:14:58.133021+08:06</updated><author><name>君祁</name><email>zqiang33@163.com</email></author><link href="/Blog-With-GitHub-Boilerplate/" rel="alternate"/><generator uri="https://lkiesow.github.io/python-feedgen" version="0.9.0">python-feedgen</generator><logo>/Blog-With-GitHub-Boilerplate/logo.png</logo><subtitle>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</subtitle><entry><id>/Blog-With-GitHub-Boilerplate/archives/binary_tree/</id><title>二叉树的前中后序遍历</title><updated>2022-09-09T06:14:58.133352+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;递归法&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>/Blog-With-GitHub-Boilerplate/</id><title>君祁的技术博客</title><updated>2022-09-09T06:20:01.678251+08:06</updated><author><name>君祁</name><email>zqiang33@163.com</email></author><link href="/Blog-With-GitHub-Boilerplate/" rel="alternate"/><generator uri="https://lkiesow.github.io/python-feedgen" version="0.9.0">python-feedgen</generator><logo>/Blog-With-GitHub-Boilerplate/logo.png</logo><subtitle>只有一种英雄主义，就是看清生活真相之后依然热爱生活。</subtitle><entry><id>/Blog-With-GitHub-Boilerplate/archives/binary_tree/</id><title>二叉树的前中后序遍历</title><updated>2022-09-09T06:20:01.678573+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;递归法&lt;/h2&gt;
 &lt;p&gt;递归算法的三个要素&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;确定递归函数的参数和返回值&lt;/li&gt;
@@ -104,7 +104,7 @@
 
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/" rel="alternate"/><published>2021-06-24T00:16:53+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</id><title>redis高可用</title><updated>2022-09-09T06:14:58.133326+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;过期删除策略&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/binary_tree/" rel="alternate"/><published>2021-06-24T00:16:53+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/redis_ha/</id><title>redis高可用</title><updated>2022-09-09T06:20:01.678548+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;过期删除策略&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://zhuanlan.zhihu.com/p/139423463"&gt;链接&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;定时删除&lt;/li&gt;
@@ -208,7 +208,7 @@ Redis的主从复制是异步复制，异步分为两个方面，一个是master
 &lt;p&gt;官方默认cluster不进行读写分离。在cluster架构下，默认的，一般redis-master用于接收读写，而redis-slave则用于备份，当有请求是向slave发起时，会直接重定向到对应key的master来处理。&lt;/p&gt;
 &lt;p&gt;可通过readonly命令，将slave设置成可读，然后通过slave获取相关的key，达到读写分离。&lt;/p&gt;
 &lt;p&gt;不过，通过对master进行水平扩展就可以了，扩容master，跟之前扩容slave并进行读写分离，效果是一样的或者更好。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/" rel="alternate"/><published>2021-06-24T01:00:23+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/consistency/</id><title>一致性问题</title><updated>2022-09-09T06:14:58.133301+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;一致性问题的产生&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/redis_ha/" rel="alternate"/><published>2021-06-24T01:00:23+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/consistency/</id><title>一致性问题</title><updated>2022-09-09T06:20:01.678524+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;一致性问题的产生&lt;/h2&gt;
 &lt;p&gt;同一份数据有多份副本，我们面临这样的问题，如何在它们之间同步数据，以便让客户端对数据有一致性的视图。 CAP理论对一致性的定义：每次读请求都能收到最新的数据或者是错误。&lt;/p&gt;
 &lt;h2&gt;弱一致性&lt;/h2&gt;
 &lt;p&gt;写入数据后，客户端访问可能看不到最新写入的数据，系统优先保证响应速度。弱一致性适合音视频聊天，实时多人游戏等场景。&lt;/p&gt;
@@ -216,10 +216,10 @@ Redis的主从复制是异步复制，异步分为两个方面，一个是master
 &lt;p&gt;写入数据后，客户端访问最终能看到写入的新数据（可能延迟几毫秒），数据被异步复制。 最终一致性在高可用系统中效果不错。&lt;/p&gt;
 &lt;h2&gt;强一致性&lt;/h2&gt;
 &lt;p&gt;写入数据后，客户端访问到的一定是最新数据。数据被同步复制。 强一致性适合需要事务的场景。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/consistency/" rel="alternate"/><published>2021-07-14T19:45:39+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/blog_template/</id><title>blog_template</title><updated>2022-09-09T06:14:58.133276+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;ul&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/consistency/" rel="alternate"/><published>2021-07-14T19:45:39+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/blog_template/</id><title>blog_template</title><updated>2022-09-09T06:20:01.678499+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;ul&gt;
 &lt;li&gt;&lt;a href="https://hexo.io/"&gt;hexo&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/blog_template/" rel="alternate"/><published>2021-07-14T19:47:55+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/algorithm_summary/</id><title>算法套路总结</title><updated>2022-09-09T06:14:58.133251+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;二分查找&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/blog_template/" rel="alternate"/><published>2021-07-14T19:47:55+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/algorithm_summary/</id><title>算法套路总结</title><updated>2022-09-09T06:20:01.678474+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;二分查找&lt;/h2&gt;
 &lt;h2&gt;双指针&lt;/h2&gt;
 &lt;p&gt;双指针技巧分为两类，一类是快慢指针，一类是左右指针。&lt;/p&gt;
 &lt;h2&gt;滑动窗口&lt;/h2&gt;
@@ -240,7 +240,7 @@ Redis的主从复制是异步复制，异步分为两个方面，一个是master
 &lt;p&gt;&lt;a href="https://leetcode-cn.com/problems/two-sum/"&gt;TwoSum问题&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;二叉树&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://github.com/labuladong/fucking-algorithm/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%B3%BB%E5%88%97/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E6%93%8D%E4%BD%9C%E9%9B%86%E9%94%A6.md"&gt;二叉树集锦&lt;/a&gt;&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/algorithm_summary/" rel="alternate"/><published>2021-07-14T19:52:25+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/ddd/</id><title>领域驱动设计</title><updated>2022-09-09T06:14:58.133225+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content/><link href="/Blog-With-GitHub-Boilerplate/archives/ddd/" rel="alternate"/><published>2021-07-14T19:56:11+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/docker_commands/</id><title>docker commands</title><updated>2022-09-09T06:14:58.133199+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;docker commands&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/algorithm_summary/" rel="alternate"/><published>2021-07-14T19:52:25+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/ddd/</id><title>领域驱动设计</title><updated>2022-09-09T06:20:01.678450+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content/><link href="/Blog-With-GitHub-Boilerplate/archives/ddd/" rel="alternate"/><published>2021-07-14T19:56:11+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/docker_commands/</id><title>docker commands</title><updated>2022-09-09T06:20:01.678424+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;docker commands&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;attach: Attach local standard input, output, and error streams to a running container&lt;/li&gt;
 &lt;li&gt;build: Build an image from a Dockerfile&lt;/li&gt;
@@ -278,7 +278,7 @@ Redis的主从复制是异步复制，异步分为两个方面，一个是master
 &lt;h2&gt;docker run&lt;/h2&gt;
 &lt;p&gt;使用docker run的时候，通过-v HOST_DIR:CONTAINER_DIR参数来指定数据卷使用的主机目录，这个做法一般被称为“绑定挂载”。
 主机目录指运行docker引擎的机器。如果是远程连接到docker服务的话，那么远端的计算机必须已经存在该路径。&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/docker_commands/" rel="alternate"/><published>2021-07-14T19:57:36+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/docker_resource/</id><title>docker资源</title><updated>2022-09-09T06:14:58.133173+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;ul&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/docker_commands/" rel="alternate"/><published>2021-07-14T19:57:36+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/docker_resource/</id><title>docker资源</title><updated>2022-09-09T06:20:01.678397+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;ul&gt;
 &lt;li&gt;Docker官方主页(&lt;a href="http://www.docker.com/)。"&gt;http://www.docker.com/)。&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Docker Hub(&lt;a href="http://hub.docker.com)。"&gt;http://hub.docker.com)。&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Docker官方博客(&lt;a href="http://blog.docker.com/)。"&gt;http://blog.docker.com/)。&lt;/a&gt;&lt;/li&gt;
@@ -299,7 +299,7 @@ Redis的主从复制是异步复制，异步分为两个方面，一个是master
 &lt;li&gt;&lt;a href="https://martinfowler.com/microservices/"&gt;微服务资源指南&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;微服务设计 Sam Newman&lt;/li&gt;
 &lt;/ul&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/docker_resource/" rel="alternate"/><published>2021-07-14T20:01:42+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/health_habbit/</id><title>健康习惯</title><updated>2022-09-09T06:14:58.133142+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;【起居有常，饮食有度，远离妄念】&lt;/p&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/docker_resource/" rel="alternate"/><published>2021-07-14T20:01:42+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/health_habbit/</id><title>健康习惯</title><updated>2022-09-09T06:20:01.678367+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;【起居有常，饮食有度，远离妄念】&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;保证充足的睡眠。最好是【早睡早起】，比如：11点之前睡，7点起床。&lt;/li&gt;
 &lt;li&gt;饮水的【5要】和【5不要】。晨起喝温水，小口喝水，工作时保持喝水，身体不适多喝水，饭前饭后喝水(尽量不在吃饭的时候喝水)。&lt;/li&gt;
@@ -316,7 +316,7 @@ Redis的主从复制是异步复制，异步分为两个方面，一个是master
 &lt;li&gt;心存敬畏。敬规律，敬天地，敬良心，敬道德。有所为有所不为，道德底线不能突破。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a href="https://ixyzero.com/blog/archives/4874.html"&gt;链接&lt;/a&gt;&lt;/p&gt;
-</content><link href="/Blog-With-GitHub-Boilerplate/archives/health_habbit/" rel="alternate"/><published>2021-07-15T17:07:00+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/live_architecture/</id><title>多活架构分析</title><updated>2022-09-09T06:14:58.133086+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;容灾经验分享&lt;/h2&gt;
+</content><link href="/Blog-With-GitHub-Boilerplate/archives/health_habbit/" rel="alternate"/><published>2021-07-15T17:07:00+08:06</published></entry><entry><id>/Blog-With-GitHub-Boilerplate/archives/live_architecture/</id><title>多活架构分析</title><updated>2022-09-09T06:20:01.678314+00:00</updated><author><name>君祁</name><email>zqiang33@163.com</email><uri>https://www.imalan.cn</uri></author><content>&lt;h2&gt;容灾经验分享&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://developer.aliyun.com/article/771429#:~:text=1%20%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%82%E5%9C%B0%E5%A4%9A,%E4%B8%AD%E5%BF%83%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%88%87%E6%8D%A2%E6%88%90%E5%8A%9F%E3%80%82"&gt;浅谈异地多活及容灾经验分享&lt;/a&gt;
 异地多活，英文是Multi-Site High Availability，与传统灾备最主要的区别是“多活”里所有站点都是同时对外提供服务的。&lt;/p&gt;
 &lt;p&gt;传统的灾备方案缺点：&lt;/p&gt;
